@@ -328,7 +328,7 @@
 
   /* ---------- Responsive ---------- */
   @media(max-width:1000px){
-    nav.links,.nav-cta .socials,.nav-cta .login{display:none}
+    nav.links,.nav-cta .socials{display:none}
     .menu-btn{display:grid;place-items:center}
     .heritage-grid,.pres-grid,.ev-grid,.foot-grid{grid-template-columns:1fr}
     .pillars{grid-template-columns:1fr 1fr}
@@ -336,17 +336,110 @@
     .pres-grid{gap:40px}
   }
   @media(max-width:760px){
+    body{font-size:16px;line-height:1.7}
+
+    /* --- Nav: show both buttons properly --- */
+    .nav-inner{gap:12px;height:68px}
+    .brand-mark{width:36px;height:36px}
+    .brand-mark span{font-size:1.2rem}
+    .brand-txt b{font-size:1.25rem}
+    .brand-txt small{font-size:.58rem;letter-spacing:.24em}
+    .nav-cta{gap:10px}
+    .nav-cta .login{display:block;font-size:.78rem;letter-spacing:.08em;padding:6px 10px;border:1px solid var(--line-strong);border-radius:3px}
+    .nav-cta .btn{font-size:.78rem;padding:9px 14px;letter-spacing:.08em}
+    .menu-btn{width:38px;height:38px}
+
+    /* --- Hero: more breathing room --- */
+    .hero{padding:clamp(34px,6vw,56px) 0 clamp(40px,6vw,64px)}
+    .hero h1{font-size:clamp(2rem,8vw,3rem);margin-top:28px}
+    .hero-sub{font-size:1rem;margin-top:16px;padding:0 8px}
+    .hero-cta{flex-direction:column;align-items:center;gap:12px;margin-top:28px}
+    .hero-cta .btn{width:100%;max-width:320px;justify-content:center;padding:16px 24px;font-size:1rem}
+    .banner-frame{margin-top:22px;padding:6px}
+
+    /* --- Stats --- */
     .stats-grid{grid-template-columns:1fr 1fr}
     .stat:nth-child(2){border-right:none}
-    .cmd-list{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row}
+    .stat{padding:28px 16px;border-bottom:1px solid var(--line)}
+
+    /* --- Section spacing --- */
+    .section{padding:clamp(48px,8vw,80px) 0}
+    .wrap{padding:0 20px}
+
+    /* --- Overline / headings: better sizing --- */
+    .overline{font-size:.72rem;letter-spacing:.24em}
+    .overline::before{width:24px}
+    .head h2{font-size:clamp(1.8rem,7vw,2.6rem);margin-top:14px}
+    .head p{font-size:1rem;margin-top:14px}
+
+    /* --- Text readability: boost contrast --- */
+    .heritage-copy p, .pres-copy p, .pillar p, .affil-card p{
+      color:#c9c0b5;font-size:.95rem;line-height:1.7
+    }
+    .heritage-copy .lead, .pres-copy .lead{font-size:1.08rem;color:var(--ink)}
+    .quote{font-size:1.5rem;padding-left:18px;margin-top:24px}
+
+    /* --- Mission pillars: single column, more space --- */
+    .pillars{grid-template-columns:1fr;gap:16px;margin-top:36px}
+    .pillar{padding:28px 22px 26px}
+    .pillar h3{font-size:1.45rem}
+    .pillar::after{font-size:6rem}
+
+    /* --- President --- */
+    .pres-figure{max-width:100%}
+    .sig{font-size:1.7rem;margin-top:22px}
+
+    /* --- Ten Commandments: wider, more breathing room --- */
+    .cmd-plaque{margin:36px -8px 0;padding:6px;border-radius:10px}
+    .cmd-inner{padding:32px 18px;border-radius:6px}
+    .cmd-head{margin-bottom:20px}
+    .cmd-head h2{font-size:clamp(1.8rem,7vw,2.6rem)}
+    .cmd-head p{font-size:.78rem;letter-spacing:.14em}
+    .cmd-head .rule::before,.cmd-head .rule::after{width:40px}
+    .cmd-list{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row;gap:0}
+    .cmd-item{padding:14px 0;gap:14px}
     .cmd-item:nth-child(5){border-bottom:1px solid rgba(224,179,77,.13)}
-    .cmd-item .rn{width:40px}
-    .stat{border-bottom:1px solid var(--line)}
-    .pillars{grid-template-columns:1fr}
+    .cmd-item .rn{width:32px;font-size:1.6rem}
+    .cmd-item p{font-size:.93rem;line-height:1.6;color:#c9c0b5}
+
+    /* --- Affiliations --- */
+    .affil{gap:14px;margin-top:36px}
+    .affil-card{padding:26px 22px}
+    .affil-card h3{font-size:1.2rem}
+    .affil-card .a-mark{font-size:1.8rem}
+
+    /* --- Join CTA --- */
+    .join h2{font-size:clamp(2rem,7vw,3rem)}
+    .join p{font-size:1rem;padding:0 8px}
+    .join .hero-cta{flex-direction:column;align-items:center;gap:12px;margin-top:26px}
+    .join .hero-cta .btn{width:100%;max-width:320px;justify-content:center;padding:16px 24px;font-size:1rem}
+
+    /* --- Gallery --- */
+    .gal-track img{width:260px;height:170px}
+    .gal-strips{margin-top:32px}
+
+    /* --- Footer --- */
+    .foot-grid{grid-template-columns:1fr;gap:28px}
+    .foot-bottom{flex-direction:column;text-align:center;gap:14px}
+
+    /* --- Calendar --- */
     .cal-inner iframe.cal-desktop{display:none}
     .cal-inner iframe.cal-mobile{display:block}
-    .foot-bottom{flex-direction:column;text-align:center}
-    body{font-size:17px}
+    .cal-frame{padding:5px}
+  }
+
+  /* Extra small screens (under 400px) */
+  @media(max-width:400px){
+    .wrap{padding:0 16px}
+    .nav-inner{gap:8px}
+    .nav-cta .login{font-size:.72rem;padding:5px 8px}
+    .nav-cta .btn{font-size:.72rem;padding:8px 10px}
+    .hero h1{font-size:1.75rem}
+    .cmd-plaque{margin:28px -12px 0;padding:4px}
+    .cmd-inner{padding:26px 14px}
+    .cmd-item .rn{width:28px;font-size:1.4rem}
+    .cmd-item p{font-size:.88rem}
+    .stat b{font-size:2rem}
   }
 </style>
 </head>
