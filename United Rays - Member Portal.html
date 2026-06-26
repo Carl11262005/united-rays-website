@@ -257,23 +257,22 @@
     .mp-login-art p{font-size:.9rem;max-width:100%}
     .mp-login-form{padding:28px 20px}
     .mp-login-form h2{font-size:2.2rem;margin:6px 0 22px}
+    /* --- Dashboard: keep sidebar layout, narrow sidebar --- */
+    .mp-dash.show{grid-template-columns:160px 1fr}
 
-    /* --- Dashboard layout: single column --- */
-    .mp-dash.show{grid-template-columns:1fr}
-
-    /* --- Sidebar: keep desktop structure, just compact --- */
-    .mp-side{flex-direction:column;border-right:none;border-bottom:1px solid var(--line);padding:14px 16px;gap:0}
-    .mp-user{padding:0 0 12px;margin:0 0 10px;border-bottom:1px solid var(--line);gap:10px}
-    .mp-avatar{width:36px;height:36px;font-size:1.05rem}
-    .mp-user b{font-size:.9rem}
-    .mp-user span{font-size:.62rem;letter-spacing:.1em}
-    .mp-nav{flex-direction:column;padding:0;gap:2px}
-    .mp-nav button{padding:10px 12px;font-size:.9rem;gap:10px;border-radius:6px}
-    .mp-nav button svg{width:17px;height:17px}
+    /* --- Sidebar: compact version of desktop --- */
+    .mp-side{flex-direction:column;border-right:1px solid var(--line);border-bottom:none;padding:14px 8px;gap:0}
+    .mp-user{padding:0 0 10px;margin:0 0 8px;border-bottom:1px solid var(--line);gap:8px}
+    .mp-avatar{width:30px;height:30px;font-size:.9rem}
+    .mp-user b{font-size:.76rem;line-height:1.2}
+    .mp-user span{font-size:.52rem;letter-spacing:.08em}
+    .mp-nav{flex-direction:column;padding:0;gap:1px}
+    .mp-nav button{padding:7px 8px;font-size:.74rem;gap:7px;border-radius:5px}
+    .mp-nav button svg{width:14px;height:14px}
     .mp-nav button span{display:inline}
-    .mp-nav-label{border-top:1px solid var(--line);padding:12px 0 6px;margin:8px 0 0;font-size:.6rem}
-    .mp-signout{margin:8px 0 0;width:100%;padding:10px 12px;font-size:.88rem;gap:10px}
-    .mp-signout svg{width:17px;height:17px}
+    .mp-nav-label{border-top:1px solid var(--line);padding:8px 0 4px;margin:6px 0 0;font-size:.5rem;letter-spacing:.14em}
+    .mp-signout{margin:auto 0 0;width:100%;padding:7px 8px;font-size:.74rem;gap:7px}
+    .mp-signout svg{width:14px;height:14px}
 
     /* --- Main content --- */
     .mp-main{padding:24px 16px}
