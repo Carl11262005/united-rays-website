@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Member Sign-In · United Rays Corvette Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0b0a09;--bg-2:#121010;--card:#16130f;
+    --line:rgba(255,255,255,.09);--line-strong:rgba(255,255,255,.16);
+    --red:#d81f26;--red-bright:#f23b34;--gold:#e0b34d;--gold-soft:#c79b41;
+    --ink:#f6f1e8;--muted:#b3a99c;--muted-2:#857c70;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Barlow",system-ui,sans-serif;font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+
+  /* ---- top bar ---- */
+  .si-topbar{display:flex;align-items:center;gap:13px;height:74px;padding:0 28px;border-bottom:1px solid var(--line);background:rgba(11,10,9,.9);position:sticky;top:0;z-index:10}
+  .brand-mark{width:42px;height:42px;flex:none;position:relative;display:grid;place-items:center;border:2px solid var(--gold);transform:rotate(45deg);background:linear-gradient(135deg,#1a1715,#0b0a09)}
+  .brand-mark::after{content:"";position:absolute;inset:5px;border:1px solid var(--red)}
+  .brand-mark span{transform:rotate(-45deg);font-family:"Bebas Neue";font-size:1.45rem;color:var(--gold);line-height:1}
+  .brand-txt{font-family:"Bebas Neue";line-height:.86}
+  .brand-txt b{display:block;font-size:1.45rem;letter-spacing:.02em}
+  .brand-txt small{font-family:"Barlow Condensed";font-weight:600;font-size:.64rem;letter-spacing:.34em;color:var(--muted);text-transform:uppercase}
+  .back{margin-left:auto;font-family:"Barlow Condensed";font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.9rem;color:var(--muted);display:inline-flex;align-items:center;gap:8px}
+  .back:hover{color:var(--gold)}
+  .back svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+  /* ---- demo banner ---- */
+  .si-banner{background:rgba(224,179,77,.1);border-bottom:1px solid rgba(224,179,77,.3);color:var(--gold);text-align:center;font-family:"Barlow Condensed";font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:.78rem;padding:9px 16px;display:none}
+  .si-banner.show{display:block}
+
+  /* ---- split layout ---- */
+  .si-wrap{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 74px)}
+
+  /* left art panel */
+  .si-art{position:relative;overflow:hidden;background:linear-gradient(150deg,#1a0707,#0c0a08 70%);padding:64px 56px;display:flex;flex-direction:column;justify-content:space-between}
+  .si-art::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 70% at 30% 10%,rgba(216,31,38,.3),transparent 60%);pointer-events:none}
+  .si-art .art-mark{width:62px;height:62px;position:relative;z-index:1;display:grid;place-items:center;border:2px solid var(--gold);transform:rotate(45deg);background:linear-gradient(135deg,#1a1715,#0b0a09)}
+  .si-art .art-mark::after{content:"";position:absolute;inset:6px;border:1px solid var(--red)}
+  .si-art .art-mark span{transform:rotate(-45deg);font-family:"Bebas Neue";font-size:1.9rem;color:var(--gold);line-height:1}
+  .si-art h3{position:relative;z-index:1;font-family:"Bebas Neue";font-size:clamp(3rem,5vw,4.4rem);text-transform:uppercase;line-height:.92;color:var(--ink);margin-top:auto}
+  .si-art h3 .gold{color:var(--gold)}
+  .si-art p{position:relative;z-index:1;color:var(--muted);font-size:1rem;margin-top:16px;max-width:340px;line-height:1.6}
+  .si-art .facts{position:relative;z-index:1;display:flex;flex-direction:column;gap:14px;margin-top:36px}
+  .si-art .fact{display:flex;align-items:center;gap:12px;font-family:"Barlow Condensed";font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:.84rem;color:var(--muted-2)}
+  .si-art .fact::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--red);flex:none}
+
+  /* right form panel */
+  .si-panel{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:clamp(34px,5vw,60px)}
+  .si-card{width:100%;max-width:400px}
+  .overline{font-family:"Barlow Condensed";font-weight:600;text-transform:uppercase;letter-spacing:.32em;font-size:.8rem;color:var(--gold);display:inline-flex;align-items:center;gap:14px;margin-bottom:10px}
+  .overline::before{content:"";width:30px;height:2px;background:var(--red);display:inline-block}
+  .si-card h2{font-family:"Bebas Neue";font-size:2.7rem;text-transform:uppercase;color:var(--ink);margin-bottom:10px;line-height:1}
+  .si-card .sub{color:var(--muted);font-size:1rem;margin-bottom:32px;line-height:1.55}
+
+  /* google button */
+  .si-google{width:100%;display:flex;align-items:center;justify-content:center;gap:14px;background:#fff;color:#1f1f1f;border:none;border-radius:7px;cursor:pointer;font-family:"Barlow";font-weight:600;font-size:1.06rem;padding:15px 20px;transition:.18s;box-shadow:0 2px 18px rgba(0,0,0,.35)}
+  .si-google:hover{background:#f1f1f1;transform:translateY(-2px);box-shadow:0 6px 28px rgba(0,0,0,.45)}
+  .si-google:active{transform:none}
+  .si-google[disabled]{opacity:.55;cursor:not-allowed;transform:none}
+  .si-google svg{width:22px;height:22px;flex:none}
+
+  /* message box */
+  .si-msg{margin-top:20px;padding:14px 18px;border-radius:8px;font-size:.96rem;display:none;line-height:1.5;text-align:center}
+  .si-msg.show{display:block}
+  .si-msg.err{background:rgba(216,31,38,.12);border:1px solid rgba(216,31,38,.4);color:#f0a3a0}
+  .si-msg.info{background:rgba(224,179,77,.1);border:1px solid rgba(224,179,77,.3);color:var(--gold)}
+
+  .si-foot{margin-top:28px;padding-top:20px;border-top:1px solid var(--line);font-size:.86rem;color:var(--muted-2);text-align:center;line-height:1.55}
+  .si-foot a{color:var(--muted)}.si-foot a:hover{color:var(--gold)}
+
+  /* status screen */
+  .si-status{display:none;text-align:center;max-width:400px}
+  .si-status.show{display:block}
+  .si-status .st-ic{width:80px;height:80px;border-radius:50%;display:grid;place-items:center;margin:0 auto 22px}
+  .si-status .st-ic svg{width:40px;height:40px;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .si-status h2{font-family:"Bebas Neue";font-size:2.4rem;text-transform:uppercase;margin-bottom:12px}
+  .si-status p{color:var(--muted);font-size:1rem;line-height:1.6;margin-bottom:6px}
+  .si-status .btn-ghost{display:inline-flex;align-items:center;justify-content:center;font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.95rem;padding:13px 26px;border:2px solid var(--line-strong);border-radius:3px;cursor:pointer;background:none;color:var(--ink);margin-top:22px;transition:.2s}
+  .si-status .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+  @media(max-width:820px){
+    .si-wrap{grid-template-columns:1fr}
+    .si-art{min-height:220px;padding:36px;justify-content:flex-end}
+    .si-art h3{font-size:2.6rem}
+    .si-art .facts{display:none}
+  }
+</style>
+</head>
+<body data-screen-label="Member Sign-In">
+
+<header class="si-topbar">
+  <span class="brand-mark"><span>UR</span></span>
+  <span class="brand-txt"><b>United Rays</b><small>Member Access</small></span>
+  <a class="back" href="United Rays - Home.html"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Back to Site</a>
+</header>
+
+<div class="si-banner" id="si-banner">Demo mode — connect Firebase in firebase-config.js to enable real sign-in</div>
+
+<div class="si-wrap">
+
+  <!-- Art panel -->
+  <div class="si-art">
+    <div class="art-mark"><span>UR</span></div>
+    <div>
+      <h3>Members<br /><span class="gold">Only</span></h3>
+      <p>The United Rays member portal — manage your dues, read meeting minutes, and connect with the family.</p>
+      <div class="facts">
+        <div class="fact">Approved members only</div>
+        <div class="fact">Sign in with your Google account</div>
+        <div class="fact">Managed by club officers</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sign-in panel -->
+  <div class="si-panel">
+
+    <!-- Google sign-in card -->
+    <div class="si-card" id="si-card">
+      <span class="overline">Member Access</span>
+      <h2>Sign In</h2>
+      <p class="sub">Use the Google account registered with the United Rays to access the member portal.</p>
+      <button class="si-google" id="si-google-btn">
+        <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.6l6.8-6.8C35.6 2.4 30.1 0 24 0 14.6 0 6.4 5.4 2.6 13.2l7.9 6.1C12.4 13.1 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 7l7.1 5.5C43.3 37.3 46.1 31.4 46.1 24.5z"/><path fill="#FBBC05" d="M10.5 28.3c-.5-1.4-.7-2.9-.7-4.3s.3-3 .7-4.3l-7.9-6.1C1 16.6 0 20.2 0 24s1 7.4 2.6 10.4l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.1-5.5c-2 1.3-4.5 2.1-8.8 2.1-6.3 0-11.6-3.6-13.5-8.8l-7.9 6.1C6.4 42.6 14.6 48 24 48z"/></svg>
+        Continue with Google
+      </button>
+      <div class="si-msg" id="si-msg"></div>
+      <div class="si-foot">
+        Not a member yet? <a href="United Rays - Home.html#join">Apply to join ↗</a><br />
+        Questions? <a href="mailto:Urayspittsburgh@gmail.com">Contact a club officer ↗</a>
+      </div>
+    </div>
+
+    <!-- Not-a-member: brief message shown before redirect to #join -->
+    <div class="si-status" id="si-status-notmember" style="display:none">
+      <div class="st-ic" style="border:2px solid var(--gold)">
+        <svg viewBox="0 0 24 24" style="stroke:var(--gold)"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>
+      </div>
+      <h2>Not a Member Yet?</h2>
+      <p>That Google account isn't on the member list. Taking you to our membership application…</p>
+    </div>
+
+  </div>
+</div>
+
+<script src="firebase-config.js"></script>
+
+<script type="module">
+  const READY = !!window.FIREBASE_READY;
+  const PORTAL = "United Rays - Member Portal.html";
+  const ALLOWLIST_COL = "allowlist"; // Firestore collection: allowlist/{emailLower} → {active:true}
+  const msg = document.getElementById("si-msg");
+  const card = document.getElementById("si-card");
+  const statusNotMember = document.getElementById("si-status-notmember");
+
+  function showMsg(text, kind){ msg.textContent = text; msg.className = "si-msg show " + (kind||"err"); }
+  function showNotMember(){
+    card.style.display = "none";
+    statusNotMember.style.display = "block";
+    setTimeout(() => { window.location.href = "United Rays - Home.html#join"; }, 2000);
+  }
+
+  /* ---- DEMO MODE ---- */
+  if(!READY){
+    document.getElementById("si-banner").classList.add("show");
+    document.getElementById("si-google-btn").addEventListener("click", () => {
+      window.location.href = PORTAL;
+    });
+  }
+
+  /* ---- REAL MODE ---- */
+  if(READY){
+    const SUPER_ADMINS = ['kyoungurcc@gmail.com', 'carltonperryrocks@gmail.com'];
+
+    const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js");
+    const { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
+      = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+    const { getFirestore, doc, getDoc }
+      = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+
+    const app = initializeApp(window.FIREBASE_CONFIG);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    async function isApproved(email){
+      const key = email.toLowerCase().trim();
+      // Super admin is always approved
+      if(SUPER_ADMINS.includes(key)) return true;
+      const snap = await getDoc(doc(db, ALLOWLIST_COL, key));
+      return snap.exists() && snap.data().active === true;
+    }
+
+    const btn = document.getElementById("si-google-btn");
+
+    // Auto-login if session exists
+    btn.disabled = true;
+    showMsg("Checking for active session…", "info");
+
+    onAuthStateChanged(auth, async (user) => {
+      if(user){
+        const email = user.email || "";
+        try {
+          const ok = await isApproved(email);
+          if(ok){
+            try{ sessionStorage.setItem('ur_session_email', email); sessionStorage.setItem('ur_session_name', user.displayName||''); }catch(e){}
+            window.location.href = PORTAL;
+            return;
+          } else {
+            await signOut(auth);
+            msg.className = "si-msg";
+            showNotMember();
+          }
+        } catch (e) {
+          console.error("Session check error:", e);
+          msg.className = "si-msg";
+        }
+      } else {
+        msg.className = "si-msg";
+      }
+      btn.disabled = false;
+    });
+
+    btn.addEventListener("click", async () => {
+      btn.disabled = true;
+      showMsg("Signing in with Google…", "info");
+      try{
+        const provider = new GoogleAuthProvider();
+        const result = await signInWithPopup(auth, provider);
+        const email = result.user.email || "";
+        const ok = await isApproved(email);
+        if(ok){
+          try{ sessionStorage.setItem('ur_session_email', email); sessionStorage.setItem('ur_session_name', result.user.displayName||''); }catch(e){}
+          window.location.href = PORTAL;
+        } else {
+          await signOut(auth);
+          msg.className = "si-msg";
+          showNotMember();
+        }
+      } catch(err) {
+        console.error("Firebase Sign-In Error:", err);
+        const friendly = {
+          "auth/popup-closed-by-user": "Sign-in was cancelled.",
+          "auth/popup-blocked": "Pop-up was blocked — please allow pop-ups for this site.",
+          "auth/network-request-failed": "Network error — check your connection and try again.",
+          "auth/unauthorized-domain": "Unauthorized domain — please access the site via http://localhost:8000 instead of http://127.0.0.1:8000."
+        };
+        showMsg(friendly[err.code] || `Error (${err.code || err.message || "unknown"}). Please try again.`);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
+</script>
+</body>
+</html>

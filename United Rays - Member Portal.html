@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Member Portal · United Rays Corvette Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0b0a09;--bg-2:#121010;--card:#16130f;
+    --line:rgba(255,255,255,.09);--line-strong:rgba(255,255,255,.16);
+    --red:#d81f26;--red-bright:#f23b34;--gold:#e0b34d;--gold-soft:#c79b41;
+    --ink:#f6f1e8;--muted:#b3a99c;--muted-2:#857c70;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Barlow",system-ui,sans-serif;font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .overline{font-family:"Barlow Condensed",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.32em;font-size:.8rem;color:var(--gold);display:inline-flex;align-items:center;gap:14px}
+  .overline::before{content:"";width:30px;height:2px;background:var(--red);display:inline-block}
+  .btn{font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:1.02rem;display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:3px;border:2px solid transparent;cursor:pointer;transition:.2s}
+  .btn-red{background:var(--red);color:#fff}.btn-red:hover{background:var(--red-bright)}
+  .brand-mark{width:42px;height:42px;flex:none;position:relative;display:grid;place-items:center;border:2px solid var(--gold);transform:rotate(45deg);background:linear-gradient(135deg,#1a1715,#0b0a09)}
+  .brand-mark span{transform:rotate(-45deg);font-family:"Bebas Neue";font-size:1.45rem;color:var(--gold);line-height:1}
+  .brand-mark::after{content:"";position:absolute;inset:5px;border:1px solid var(--red)}
+
+  /* top bar */
+  .mp-topbar{display:flex;align-items:center;gap:13px;height:74px;padding:0 28px;border-bottom:1px solid var(--line);background:rgba(11,10,9,.9);position:sticky;top:0;z-index:10}
+  .mp-topbar .brand-txt{font-family:"Bebas Neue";line-height:.86}
+  .mp-topbar .brand-txt b{display:block;font-size:1.45rem;letter-spacing:.02em}
+  .mp-topbar .brand-txt small{font-family:"Barlow Condensed";font-weight:600;font-size:.64rem;letter-spacing:.34em;color:var(--muted);text-transform:uppercase}
+  .mp-topbar .back{margin-left:auto;font-family:"Barlow Condensed";font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.9rem;color:var(--muted);display:inline-flex;align-items:center;gap:8px}
+  .mp-topbar .back:hover{color:var(--gold)}
+  .mp-topbar .back svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+  /* LOGIN */
+  .mp-login{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 74px)}
+  .mp-login-art{position:relative;overflow:hidden;background:linear-gradient(150deg,#1a0707,#0c0a08 70%);padding:60px 56px;display:flex;flex-direction:column;justify-content:space-between}
+  .mp-login-art::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 70% at 30% 10%,rgba(216,31,38,.3),transparent 60%);pointer-events:none}
+  .mp-login-art .brand-mark{width:58px;height:58px;position:relative;z-index:1}
+  .mp-login-art .brand-mark span{font-size:1.8rem}
+  .mp-login-art h3{position:relative;z-index:1;font-family:"Bebas Neue";font-size:clamp(3rem,5vw,4.2rem);text-transform:uppercase;line-height:.92;color:var(--ink);margin-top:auto}
+  .mp-login-art h3 .gold{color:var(--gold)}
+  .mp-login-art p{position:relative;z-index:1;color:var(--muted);font-size:1.02rem;margin-top:14px;max-width:340px}
+  .mp-login-form{padding:clamp(34px,5vw,64px);display:flex;flex-direction:column;justify-content:center;max-width:520px}
+  .mp-login-form h2{font-family:"Bebas Neue";font-size:2.7rem;text-transform:uppercase;color:var(--ink);margin:6px 0 28px}
+  .mp-field{margin-bottom:18px}
+  .mp-field label{display:block;font-family:"Barlow Condensed";font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:.78rem;color:var(--muted);margin-bottom:7px}
+  .mp-field input{width:100%;background:#0b0907;border:1px solid var(--line-strong);border-radius:6px;color:var(--ink);font-family:"Barlow";font-size:1rem;padding:13px 15px;transition:.2s}
+  .mp-field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(224,179,77,.14)}
+  .mp-login-form .btn{width:100%;justify-content:center;margin-top:8px}
+  .mp-login-meta{display:flex;justify-content:space-between;align-items:center;margin-top:18px;font-family:"Barlow Condensed";font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:.82rem}
+  .mp-login-meta a{color:var(--muted)}.mp-login-meta a:hover{color:var(--gold)}
+  .mp-demo-note{margin-top:24px;padding-top:18px;border-top:1px solid var(--line);font-size:.84rem;color:var(--muted-2)}
+
+  /* DASHBOARD */
+  .mp-dash{display:none;grid-template-columns:260px 1fr;min-height:calc(100vh - 74px)}
+  .mp-dash.show{display:grid}
+  .mp-side{background:#0b0907;border-right:1px solid var(--line);padding:30px 0;display:flex;flex-direction:column}
+  .mp-user{display:flex;align-items:center;gap:13px;padding:0 26px 24px;border-bottom:1px solid var(--line);margin-bottom:14px}
+  .mp-avatar{width:46px;height:46px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:"Bebas Neue";font-size:1.4rem;color:#1a1208;background:linear-gradient(135deg,var(--gold),var(--gold-soft))}
+  .mp-user b{display:block;font-family:"Barlow";font-weight:700;font-size:1rem;color:var(--ink);line-height:1.2}
+  .mp-user span{font-family:"Barlow Condensed";font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;color:var(--gold)}
+  .mp-nav{display:flex;flex-direction:column;gap:3px;padding:0 14px}
+  .mp-nav button{display:flex;align-items:center;gap:13px;width:100%;text-align:left;background:none;border:none;cursor:pointer;font-family:"Barlow";font-weight:600;font-size:.97rem;color:var(--muted);padding:12px 14px;border-radius:7px;transition:.16s}
+  .mp-nav button svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+  .mp-nav button:hover{background:rgba(255,255,255,.04);color:var(--ink)}
+  .mp-nav button.active{background:rgba(216,31,38,.14);color:#fff}
+  .mp-nav button.active svg{stroke:var(--gold)}
+  .mp-signout{margin:auto 14px 0;display:flex;align-items:center;gap:13px;width:calc(100% - 28px);background:none;border:none;cursor:pointer;font-family:"Barlow";font-weight:600;font-size:.97rem;color:var(--muted-2);padding:12px 14px;border-radius:7px}
+  .mp-signout:hover{color:var(--red-bright)}
+  .mp-signout svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+  .mp-main{padding:clamp(28px,4vw,48px)}
+  .mp-panel{display:none;animation:mpFade .3s ease;max-width:860px}
+  .mp-panel.show{display:block}
+  @keyframes mpFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .mp-ph{margin-bottom:26px}
+  .mp-ph .overline{margin-bottom:10px}
+  .mp-ph h2{font-family:"Bebas Neue";font-size:2.5rem;text-transform:uppercase;color:var(--ink);line-height:1}
+  .mp-ph p{color:var(--muted);font-size:1rem;margin-top:6px}
+
+  .mp-member-card{display:flex;justify-content:space-between;align-items:center;gap:24px;
+    background:linear-gradient(135deg,rgba(30,26,21,.95),rgba(18,15,12,.98));
+    border:1px solid rgba(224,179,77,.3);border-left:4px solid var(--red);
+    border-radius:10px;padding:28px 32px;margin-bottom:28px;
+    box-shadow:0 12px 36px -20px rgba(216,31,38,.4);}
+  .mp-member-label{font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.2em;font-size:.76rem;color:var(--muted);margin-bottom:8px}
+  .mp-member-status{font-family:"Bebas Neue";font-size:2.8rem;color:#5fbf7a;line-height:1}
+  .mp-member-detail{color:var(--muted);font-size:.9rem;margin-top:8px;font-family:"Barlow Condensed";font-weight:600;letter-spacing:.06em}
+  .mp-member-badge{width:72px;height:72px;border-radius:50%;flex:none;display:grid;place-items:center;
+    border:2px solid rgba(95,191,122,.35);background:rgba(95,191,122,.08)}
+  .mp-member-badge svg{width:36px;height:36px;stroke:#5fbf7a}
+  .mp-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px}
+  .mp-stat{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:22px}
+  .mp-stat .k{font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--muted)}
+  .mp-stat .v{font-family:"Bebas Neue";font-size:2.3rem;color:var(--gold);line-height:1.1;margin-top:6px}
+  .mp-stat .v.ok{color:#5fbf7a}.mp-stat .v.due{color:var(--red-bright)}
+  .mp-quick{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .mp-qcard{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:22px;cursor:pointer;transition:.2s;text-align:left;width:100%;font-family:inherit}
+  .mp-qcard:hover{border-color:var(--gold-soft);transform:translateY(-2px)}
+  .mp-qcard .ic{width:42px;height:42px;border-radius:10px;flex:none;display:grid;place-items:center;border:1px solid rgba(224,179,77,.4);background:radial-gradient(circle at 30% 25%,rgba(224,179,77,.16),transparent)}
+  .mp-qcard .ic svg{width:22px;height:22px;fill:none;stroke:var(--gold);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .mp-qcard b{color:var(--ink);font-size:1.04rem}
+  .mp-qcard p{color:var(--muted);font-size:.9rem;margin-top:3px;line-height:1.4}
+
+  .mp-row{display:flex;align-items:center;gap:18px;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:18px 20px;margin-bottom:12px;transition:.18s}
+  .mp-row:hover{border-color:var(--line-strong)}
+  .mp-row .date{flex:none;width:62px;text-align:center}
+  .mp-row .date b{font-family:"Bebas Neue";font-size:1.7rem;color:var(--red);display:block;line-height:.9}
+  .mp-row .date span{font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.66rem;color:var(--muted)}
+  .mp-row .grow{flex:1;min-width:0}
+  .mp-row .grow b{color:var(--ink);font-size:1.04rem;display:block}
+  .mp-row .grow p{color:var(--muted);font-size:.88rem;margin-top:2px}
+  .mp-tag{font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.68rem;padding:5px 10px;border-radius:20px;white-space:nowrap}
+  .mp-tag.paid{color:#5fbf7a;background:rgba(95,191,122,.12)}
+  .mp-tag.open{color:var(--gold);background:rgba(224,179,77,.12)}
+  .mp-link-btn{font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.82rem;color:var(--gold);background:none;border:none;cursor:pointer;white-space:nowrap}
+  .mp-link-btn:hover{color:var(--gold-soft);text-decoration:underline}
+
+  .mp-dues-card{background:linear-gradient(140deg,#1a0707,#0c0a08 75%);border:1px solid rgba(224,179,77,.3);border-radius:12px;padding:32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:26px}
+  .mp-dues-card .amt{font-family:"Bebas Neue";font-size:3.6rem;color:var(--gold);line-height:.9}
+  .mp-dues-card .amt small{font-family:"Barlow Condensed";font-weight:600;font-size:1rem;letter-spacing:.1em;color:var(--muted);display:block;text-transform:uppercase}
+  .mp-dues-card .due-note{color:var(--muted);font-size:.92rem;margin-top:8px}
+
+  .mp-form-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:28px}
+  .mp-form-card textarea{width:100%;background:#0b0907;border:1px solid var(--line-strong);border-radius:7px;color:var(--ink);font-family:"Barlow";font-size:1rem;padding:13px 15px;min-height:110px;resize:vertical;transition:.2s}
+  .mp-form-card textarea:focus,.mp-form-card select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(224,179,77,.14)}
+  .mp-form-card select{width:100%;background:#0b0907;border:1px solid var(--line-strong);border-radius:7px;color:var(--ink);font-family:"Barlow";font-size:1rem;padding:13px 15px}
+  .mp-toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(20px);z-index:120;background:#11150f;border:1px solid #2f5b39;color:#7fd897;font-family:"Barlow";font-weight:600;padding:14px 24px;border-radius:10px;box-shadow:0 20px 50px -20px rgba(0,0,0,.9);opacity:0;pointer-events:none;transition:.3s}
+  .mp-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* ---------- Admin: Member Management ---------- */
+  .mp-nav-label{font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.2em;font-size:.66rem;color:var(--muted-2);padding:18px 14px 8px;margin-top:8px;border-top:1px solid var(--line)}
+  .mp-nav button.admin.active{background:rgba(224,179,77,.16)}
+  .mp-nav button.admin.active svg{stroke:var(--gold)}
+  .adm-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+  .adm-stat{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:18px 20px}
+  .adm-stat .v{font-family:"Bebas Neue";font-size:2.2rem;line-height:1;color:var(--gold)}
+  .adm-stat .k{font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:.7rem;color:var(--muted);margin-top:5px}
+  .adm-addcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px;margin-bottom:26px}
+  .adm-addcard h4{font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:.82rem;color:var(--gold);margin-bottom:14px}
+  .adm-addrow{display:grid;grid-template-columns:1fr 1.3fr 140px auto;gap:10px;align-items:end}
+  .adm-addrow .f label{display:block;font-family:"Barlow Condensed";font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;color:var(--muted);margin-bottom:6px}
+  .adm-addrow input,.adm-addrow select{width:100%;background:#0b0907;border:1px solid var(--line-strong);border-radius:6px;color:var(--ink);font-family:"Barlow";font-size:.96rem;padding:11px 40px 11px 13px;transition:.2s;appearance:none;-webkit-appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23857c70' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 12px center}
+  .adm-addrow input:focus,.adm-addrow select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(224,179,77,.14)}
+  .adm-addrow .btn{padding:11px 22px;white-space:nowrap}
+  .adm-toolbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+  .adm-toolbar .lbl{font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:.78rem;color:var(--muted)}
+  .adm-search{background:#0b0907;border:1px solid var(--line-strong);border-radius:6px;color:var(--ink);font-family:"Barlow";font-size:.95rem;padding:10px 14px;min-width:240px;transition:.2s}
+  .adm-search:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(224,179,77,.14)}
+  .adm-list{display:flex;flex-direction:column;gap:10px}
+  .adm-row{display:grid;grid-template-columns:1fr 116px 120px 108px;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:15px 18px;transition:.18s}
+  .adm-row:hover{border-color:var(--line-strong)}
+  .adm-row.suspended{opacity:.6}
+  .adm-who{display:flex;align-items:center;gap:13px;min-width:0}
+  .adm-av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:"Bebas Neue";font-size:1.2rem;color:#1a1208;background:linear-gradient(135deg,var(--gold),var(--gold-soft))}
+  .adm-who .nm{min-width:0}
+  .adm-who .nm b{display:block;color:var(--ink);font-size:1rem;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .adm-who .nm span{display:block;color:var(--muted);font-size:.84rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.7rem;padding:5px 11px;border-radius:20px;white-space:nowrap}
+  .pill.officer{color:var(--gold);background:rgba(224,179,77,.13)}
+  .pill.member{color:var(--muted);background:rgba(255,255,255,.06)}
+  .pill.active{color:#5fbf7a;background:rgba(95,191,122,.12)}
+  .pill.susp{color:var(--red-bright);background:rgba(216,31,38,.13)}
+  .adm-joined{font-family:"Barlow";font-size:.86rem;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+  .adm-dur{font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;color:var(--gold)}
+  .adm-acts{grid-column:1 / -1;display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:4px;padding-top:12px}
+  .adm-actbtn{font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.76rem;color:var(--muted);background:none;border:1px solid var(--line-strong);border-radius:5px;padding:7px 13px;cursor:pointer;transition:.16s}
+  .adm-actbtn:hover{color:var(--ink);border-color:var(--gold-soft)}
+  .adm-actbtn.danger:hover{color:var(--red-bright);border-color:var(--red)}
+  .adm-empty{text-align:center;color:var(--muted-2);padding:40px 0;font-size:.96rem}
+  .adm-tabs{display:flex;gap:6px;background:#0b0907;border:1px solid var(--line);border-radius:8px;padding:5px;margin-bottom:24px;max-width:380px}
+  .adm-tabs button{flex:1;background:none;border:none;cursor:pointer;font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.9rem;color:var(--muted);padding:11px;border-radius:5px;transition:.18s;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+  .adm-tabs button.active{background:rgba(216,31,38,.16);color:#fff}
+  .adm-badge{font-family:"Barlow";font-weight:700;font-size:.72rem;min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:var(--red);color:#fff;display:inline-grid;place-items:center;line-height:1}
+  .adm-note{color:var(--muted);font-size:.96rem;margin-bottom:18px;line-height:1.55}
+  .adm-actbtn.approve{color:#5fbf7a;border-color:rgba(95,191,122,.5)}
+  .adm-actbtn.approve:hover{color:#7fe0a0;border-color:#5fbf7a;background:rgba(95,191,122,.08)}
+  .adm-msg{color:var(--muted);font-size:.9rem;margin-top:4px;line-height:1.5;font-style:italic}
+  /* ---------- Member Directory ---------- */
+  .dir-grid{display:flex;flex-direction:column;gap:10px}
+  .dir-card{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:16px 20px;transition:.18s}
+  .dir-card:hover{border-color:var(--line-strong)}
+  .dir-info{min-width:0;flex:1}
+  .dir-name{display:flex;align-items:center;gap:10px;margin-bottom:5px;flex-wrap:wrap}
+  .dir-name b{color:var(--ink);font-size:1rem}
+  .dir-contact{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .dir-link{color:var(--muted);font-size:.88rem;text-decoration:none;transition:.15s}
+  .dir-link:hover{color:var(--gold)}
+  .dir-sep{color:var(--muted-2);font-size:.8rem}
+
+  .adm-actbtn.view{color:var(--gold);border-color:rgba(224,179,77,.45)}
+  .adm-actbtn.view:hover{color:var(--gold);border-color:var(--gold);background:rgba(224,179,77,.08)}
+
+  /* ---------- Application Detail Modal ---------- */
+  .app-modal{position:fixed;inset:0;z-index:200;display:none;align-items:flex-start;justify-content:center;padding:48px 20px;overflow-y:auto;background:rgba(7,6,5,.72);backdrop-filter:blur(3px)}
+  .app-modal.show{display:flex}
+  .app-modal-card{background:var(--bg-2,#121010);border:1px solid var(--line-strong);border-radius:14px;width:100%;max-width:640px;box-shadow:0 40px 100px -30px rgba(0,0,0,.9);animation:appModalIn .22s ease}
+  @keyframes appModalIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .app-modal-head{display:flex;align-items:center;gap:16px;padding:24px 26px;border-bottom:1px solid var(--line)}
+  .app-modal-head .adm-av{width:52px;height:52px;font-size:1.5rem}
+  .app-modal-head .nm{min-width:0;flex:1}
+  .app-modal-head .nm b{display:block;font-family:"Bebas Neue";font-size:1.5rem;color:var(--ink);line-height:1.05;letter-spacing:.01em}
+  .app-modal-head .nm span{display:block;color:var(--muted);font-size:.9rem;margin-top:2px}
+  .app-modal-close{flex:none;width:36px;height:36px;border-radius:8px;border:1px solid var(--line-strong);background:none;color:var(--muted);cursor:pointer;display:grid;place-items:center;transition:.16s}
+  .app-modal-close:hover{color:var(--ink);border-color:var(--gold-soft)}
+  .app-modal-close svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .app-modal-body{padding:8px 26px 26px}
+  .app-sec{margin-top:20px}
+  .app-sec h4{font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:.74rem;color:var(--gold);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  .app-field{display:flex;gap:14px;padding:7px 0}
+  .app-field .k{flex:none;width:150px;color:var(--muted);font-size:.88rem;font-family:"Barlow Condensed";font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+  .app-field .v{color:var(--ink);font-size:.96rem;line-height:1.55;white-space:pre-wrap;min-width:0;flex:1}
+  .app-field .v.empty{color:var(--muted-2);font-style:italic}
+  .app-modal-foot{display:flex;gap:10px;justify-content:flex-end;padding:18px 26px;border-top:1px solid var(--line);flex-wrap:wrap}
+  @media(max-width:560px){ .app-field{flex-direction:column;gap:2px} .app-field .k{width:auto} }
+
+  /* ---------- Minutes ---------- */
+  .min-row{background:var(--card);border:1px solid var(--line);border-radius:9px;margin-bottom:10px;overflow:hidden;transition:.18s}
+  .min-row:hover{border-color:var(--line-strong)}
+  .min-header{display:flex;align-items:center;gap:18px;padding:16px 20px;cursor:pointer;width:100%;background:none;border:none;text-align:left}
+  .min-header .date{flex:none;width:70px;text-align:center;background:rgba(216,31,38,.08);border-radius:7px;padding:10px 6px;border:1px solid rgba(216,31,38,.2)}
+  .min-header .date b{font-family:"Bebas Neue";font-size:1.5rem;color:var(--red);display:block;line-height:1}
+  .min-header .date span{font-family:"Barlow Condensed";font-weight:700;letter-spacing:.06em;font-size:.82rem;color:var(--muted);display:block;margin-top:3px}
+  .min-header .grow{flex:1;min-width:0}
+  .min-header .grow b{display:block;color:var(--ink);font-size:1.02rem}
+  .min-header .grow p{color:var(--muted);font-size:.88rem;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .min-chevron{flex:none;width:20px;height:20px;fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .22s}
+  .min-row.open .min-chevron{transform:rotate(180deg)}
+  .min-body{display:none;padding:0 20px 20px;border-top:1px solid var(--line)}
+  .min-row.open .min-body{display:block}
+  .min-content{color:var(--muted);font-size:.97rem;line-height:1.75;white-space:pre-wrap;font-family:"Barlow";margin-top:14px}
+  .min-pdf-link{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.82rem;color:var(--gold);border:1px solid rgba(224,179,77,.4);border-radius:5px;padding:9px 16px;transition:.18s}
+  .min-pdf-link:hover{background:rgba(224,179,77,.08)}
+  .min-empty{text-align:center;color:var(--muted-2);padding:40px 0;font-size:.96rem}
+
+  @media(max-width:820px){
+    .mp-login{grid-template-columns:1fr}
+    .mp-login-art{min-height:200px;padding:34px}
+    .mp-login-art h3{margin-top:20px}
+    .mp-dash.show{grid-template-columns:1fr}
+    .mp-side{flex-direction:row;flex-wrap:wrap;border-right:none;border-bottom:1px solid var(--line);padding:18px}
+    .mp-user{border-bottom:none;padding:0 10px 0 0;margin:0}
+    .mp-nav{flex-direction:row;flex-wrap:wrap;padding:0;gap:6px;margin-top:14px}
+    .mp-nav button{padding:9px 12px;font-size:.85rem}
+    .mp-nav button span{display:none}
+    .mp-nav-label{border-top:none;padding:0;margin:0;display:flex;align-items:center}
+    .mp-signout{margin:14px 0 0;width:auto}
+    .mp-stats{grid-template-columns:1fr}
+    .mp-quick{grid-template-columns:1fr}
+    .adm-stats{grid-template-columns:1fr}
+    .adm-addrow{grid-template-columns:1fr}
+    .adm-row{grid-template-columns:1fr auto}
+    .adm-joined{display:none}
+  }
+
+  /* Bylaws document */
+  .byl-doc{max-width:780px;padding-bottom:20px}
+  .byl-disclaimer{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:8px;padding:18px 22px;color:var(--muted);font-size:.96rem;line-height:1.65;margin-bottom:32px}
+  .byl-part{font-family:"Bebas Neue";font-size:1.9rem;letter-spacing:.06em;color:var(--ink);margin:38px 0 20px;padding-bottom:10px;border-bottom:2px solid var(--red)}
+  .byl-article{font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:.88rem;color:var(--gold);margin:28px 0 12px}
+  .byl-section{color:var(--muted);font-size:.98rem;line-height:1.72;margin-bottom:14px;padding-left:16px;border-left:2px solid var(--line)}
+  .byl-section b{color:var(--ink);font-weight:600}
+  .byl-list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0 18px}
+  .byl-list-item{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:7px;padding:11px 14px;color:var(--muted);font-size:.92rem}
+  .byl-yr{font-family:"Bebas Neue";font-size:1.2rem;color:var(--gold);flex:none;min-width:52px}
+  .byl-footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-family:"Barlow Condensed";font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:.76rem;color:var(--muted-2)}
+  @media(max-width:600px){.byl-list{grid-template-columns:1fr}}
+
+  /* Zelle payment card */
+  .zelle-card{display:flex;flex-direction:column;gap:20px;background:linear-gradient(135deg,#0d1a2a,#0b0a09 70%);border:1px solid rgba(98,156,242,.3);border-radius:12px;padding:28px 30px;margin-top:22px}
+  .zelle-left{display:flex;align-items:center;gap:18px}
+  .zelle-z{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#6a3dba,#4b2d8a);display:grid;place-items:center;font-family:"Bebas Neue";font-size:2rem;color:#fff;flex:none;box-shadow:0 6px 22px -8px rgba(106,61,186,.7)}
+  .zelle-label{font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:.76rem;color:rgba(148,168,242,.8);margin-bottom:4px}
+  .zelle-num{font-family:"Bebas Neue";font-size:2.2rem;color:#fff;letter-spacing:.04em;line-height:1}
+  .zelle-instructions{color:var(--muted);font-size:.97rem;line-height:1.65;border-top:1px solid rgba(98,156,242,.15);padding-top:18px}
+  .zelle-instructions b{color:var(--ink)}
+</style>
+</head>
+<body data-screen-label="Member Portal">
+
+<header class="mp-topbar">
+  <span class="brand-mark"><span>UR</span></span>
+  <span class="brand-txt"><b>United Rays</b><small>Member Portal</small></span>
+  <a class="back" href="United Rays - Home.html"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Back to Site</a>
+</header>
+
+
+<!-- DASHBOARD VIEW -->
+<div class="mp-dash" id="mp-dash">
+  <aside class="mp-side">
+    <div class="mp-user">
+      <div class="mp-avatar" id="mp-avatar">RM</div>
+      <div><b id="mp-username">Ray Member</b><span id="mp-userrole">Member · Good Standing</span></div>
+    </div>
+    <nav class="mp-nav" id="mp-nav">
+      <button class="active" data-panel="overview"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Overview</span></button>
+      <button data-panel="minutes"><svg viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5z"/><path d="M14 3v4h4"/><path d="M8 12h8M8 16h8M8 8h3"/></svg><span>Meeting Minutes</span></button>
+      <button data-panel="bylaws"><svg viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h13"/><path d="M18 22H6a2 2 0 0 1 0-4h12v-4"/><path d="M18 3v11"/></svg><span>Club By-Laws</span></button>
+      <button data-panel="questions"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/><path d="M9.5 9a2.5 2.5 0 0 1 4 1.5c0 1.5-2 2-2 3"/><path d="M11.5 15h.01"/></svg><span>Ask a Question</span></button>
+      <button data-panel="dues"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg><span>Pay Dues</span></button>
+      <button data-panel="events"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M9 14l2 2 4-4"/></svg><span>Event Payments</span></button>
+      <div id="mp-admin-group" style="display:none">
+        <div class="mp-nav-label">Administration</div>
+        <button class="admin" data-panel="adminMembers"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg><span>Manage Members</span></button>
+        <button class="admin" data-panel="adminMinutes"><svg viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5z"/><path d="M14 3v4h4"/><path d="M8 12h8M8 16h6M8 8h3"/></svg><span>Manage Minutes</span></button>
+        <button class="admin" data-panel="adminQuestions"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/><path d="M9.5 9a2.5 2.5 0 0 1 4 1.5c0 1.5-2 2-2 3"/><path d="M11.5 15h.01"/></svg><span>Questions</span></button>
+      </div>
+    </nav>
+    <button class="mp-signout" id="mp-signout"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg> Sign Out</button>
+  </aside>
+
+  <main class="mp-main">
+    <!-- OVERVIEW -->
+    <section class="mp-panel show" data-panel="overview">
+      <div class="mp-ph"><span class="overline">Welcome Back</span><h2>Hello, Ray</h2><p>Here's where your membership stands today.</p></div>
+      <div class="mp-member-card">
+        <div class="mp-member-left">
+          <div class="mp-member-label">Membership Status</div>
+          <div class="mp-member-status">Active</div>
+          <div class="mp-member-detail">United Rays Corvette Club &nbsp;·&nbsp; Good Standing</div>
+        </div>
+        <div class="mp-member-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+      </div>
+      <div class="mp-quick">
+        <button class="mp-qcard" data-jump="minutes"><div class="ic"><svg viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5z"/><path d="M14 3v4h4"/><path d="M8 12h8M8 16h8"/></svg></div><div><b>Monthly Minutes</b><p>Read minutes from every club meeting.</p></div></button>
+        <button class="mp-qcard" data-jump="questions"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg></div><div><b>Ask a Question</b><p>Submit a question for an upcoming meeting.</p></div></button>
+        <button class="mp-qcard" data-jump="dues"><div class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div><div><b>Pay Yearly Dues</b><p>Keep your membership in good standing.</p></div></button>
+        <button class="mp-qcard" data-jump="events"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 9h18"/></svg></div><div><b>Pay for Events</b><p>Reserve your spot at cruises &amp; banquets.</p></div></button>
+      </div>
+
+      <div style="margin-top:36px">
+        <span class="overline" style="margin-bottom:4px">Club Roster</span>
+        <p style="color:var(--muted);font-size:.95rem;margin-top:8px;margin-bottom:18px">Active members and their contact information.</p>
+        <div id="mp-directory" class="dir-grid"></div>
+      </div>
+    </section>
+
+    <!-- BYLAWS -->
+    <section class="mp-panel" data-panel="bylaws">
+      <div class="mp-ph"><span class="overline">Official Documents</span><h2>Constitution, By-Laws &amp; Operating Procedures</h2><p>Last revised September 30, 2020. Reference these policies if a question arises.</p></div>
+
+      <div class="byl-doc">
+
+        <div class="byl-disclaimer">The Constitution and By-Laws detail the rules governing the operation and management of the United Rays Corvette Club of Pittsburgh PA Inc. The basic operating instructions and rules are approved by the Executive Board and are the guideline for day-to-day operation. The most recent edition of Robert's Rules of Order shall be the guide for all parliamentary decisions.</div>
+
+        <div class="byl-part">CONSTITUTION</div>
+
+        <div class="byl-article">Article 1: General Information</div>
+        <div class="byl-section"><b>Section 1 — Name:</b> The United Rays Corvette Club of Pittsburgh PA Inc. established in June 1977 is a nonprofit corporation; Incorporated January 16, 2017. The official name shall be known as United Rays Corvette Club of Pittsburgh, PA Inc., a.k.a. United Rays Corvette Club, hereafter referred to as "United Rays" or "URCC."</div>
+        <div class="byl-section"><b>Section 2 — Mailing Address:</b> 11650 Penn Hills Drive, #17044, Penn Hills, PA 15235.</div>
+        <div class="byl-section"><b>Section 3 — Fiscal Year:</b> The fiscal year of the club shall commence on January 1 and end on December 31 of each calendar year.</div>
+
+        <div class="byl-article">Article 2: Mission</div>
+        <div class="byl-section"><b>Section 4 — Mission Statement:</b> To preserve the Corvette as America's true sports car. Promote the enthusiasm, camaraderie and fellowship developed in association with the pride of Corvette ownership. Provide opportunities for members to participate, collaborate and compete in local, regional, national and international Corvette events. Support and contribute to community outreach programs for the betterment of the communities.</div>
+
+        <div class="byl-article">Article 3: Approved Logo / Seal / Standard Colors</div>
+        <div class="byl-section"><b>Section 5.1 — United Rays Logo:</b> Shall be a circular design embodying a custom C5 type flag surrounded by the inscription "United Rays Corvette Club Pittsburgh, PA Established 1977."</div>
+        <div class="byl-section"><b>Section 5.2 — Lady Rays Logo:</b> The subsidiary logo shall be a diamond-like design embodying a custom C7 type flag with a pair of black stilettos with red heels and gold bottoms.</div>
+        <div class="byl-section"><b>Section 5.3 — Logo Revisions:</b> Any new logo ideas/design must be submitted as a proposal to the Executive Board, who will review and respond within 30 days, then present to the membership for final approval.</div>
+        <div class="byl-section"><b>Section 5.4 — Club Seal:</b> The URCC seal shall have a raised imprinted circular design embodying a custom C5 type flag surrounded by the inscription "United Rays Corvette Club Pittsburgh, PA Established 1977."</div>
+        <div class="byl-section"><b>Section 5.5 — Standard Colors:</b> The URCC standard colors are Black and Gold. Any logo created in association with the URCC is owned by the URCC.</div>
+
+        <div class="byl-article">Article 4: General Rules of Conduct</div>
+        <div class="byl-section"><b>Section 6 — Rules of Conduct:</b> All officers and members shall conduct themselves in a moral, ethical and professional manner in all activities either directly or indirectly connected to or on behalf of the URCC. Officers and members shall not conduct themselves in any manner of prejudice against nor favoritism toward any individual in any affairs concerning the United Rays Corvette Club.</div>
+
+        <div class="byl-part">BY-LAWS</div>
+
+        <div class="byl-article">Article 5: Executive Board</div>
+        <div class="byl-section"><b>Section 7.1 — Executive Board Members:</b> The Executive Board shall consist of a President, Vice President, Secretary, Treasurer, Sergeant at Arms and Governor — directly elected by the membership.</div>
+        <div class="byl-section"><b>Section 7.2 — Executive Board Role:</b> All Executive Board Members are sworn to uphold the Constitution, By-Laws and Operating Procedures and to make decisions in the best interest of the URCC.</div>
+
+        <div class="byl-article">Article 6: Membership</div>
+        <div class="byl-section"><b>Section 8.1 — Full Member:</b> All members with Corvette ownership are required to maintain full membership and pay annual dues on time. Each full member has one vote. Full membership is by invitation only; sponsorship is provided by a current full or associate member.</div>
+        <div class="byl-section"><b>Section 8.2 — Associate Member:</b> Anyone who has demonstrated interest in the URCC and shown support for its goals. Associate members pay annual dues and shall not participate in voting.</div>
+        <div class="byl-section"><b>Section 8.3 — Honorary Member:</b> Appointed by the Executive Board on a year-to-year basis. No dues required; cannot hold office or vote. Reserved for persons whose influence resulted in the enhancement and growth of the URCC.</div>
+        <div class="byl-section"><b>Section 8.4 — Legacy Member:</b> See Appendix A — Legacy Recognition Program.</div>
+        <div class="byl-section"><b>Section 8.5 — Membership Period:</b> The period of membership for all members will run from January through December.</div>
+        <div class="byl-section"><b>Section 9 — Affiliations:</b> The URCC is affiliated with the United Council of Corvette Clubs (UCCC) and is a founding member of the Corvette Club of Western Pennsylvania (CCWP). The Governor will represent the URCC at all affiliated organizations.</div>
+        <div class="byl-section"><b>Section 10 — Resignation:</b> Any member may resign by directing a letter of resignation to the Secretary. Resignation shall be effective on receipt of the letter.</div>
+        <div class="byl-section"><b>Section 11 — Reinstatement:</b> Members who resigned in good standing will be entitled to reinstatement at their previous membership status upon payment of dues.</div>
+        <div class="byl-section"><b>Section 12 — Dues:</b> Dues are determined by the Executive Board before the December meeting of the next calendar year. Membership will automatically lapse for nonpayment by January 31st. Inactive members reinstating within the calendar year shall pay full dues plus a 20% late fee. Honorary Members — No Dues.</div>
+
+        <div class="byl-article">Article 7: Meetings</div>
+        <div class="byl-section"><b>Section 13.1 — General Business Meeting:</b> Held on the 2nd Sunday of each month at a location and time to be determined. Exceptions will be published on the website.</div>
+        <div class="byl-section"><b>Section 13.2 — Executive Board Meetings:</b> Held on the Tuesday before the regular Business Meeting. The President shall preside; in absence: Vice President, Treasurer, Secretary, Governor.</div>
+        <div class="byl-section"><b>Section 13.3 — Annual Budget Meeting:</b> The URCC annual budget shall be presented at the general business meeting held the second Sunday of January each year.</div>
+        <div class="byl-section"><b>Section 13.4 — Special Meetings:</b> May be called at any time by the President. Notification including date, time, location and nature of business shall be emailed to the membership 5 days prior.</div>
+        <div class="byl-section"><b>Section 13.5 — Quorum at Meetings:</b> A minimum of two-thirds of total full members shall constitute a quorum. For Executive Board meetings, more than half of Executive Board members must be present. No Executive Board member may vote by proxy.</div>
+
+        <div class="byl-article">Article 8: Elected Officers</div>
+        <div class="byl-section"><b>Section 14.1 — Governance:</b> The governance of the URCC shall be vested in the Executive Board, which shall have complete and direct responsibility for URCC management.</div>
+        <div class="byl-section"><b>Section 14.2 — Nominations:</b> To be eligible for the Executive Board you must be a full active member with a minimum of twelve consecutive months in the club, attendance at a minimum of two meetings per quarter, and participation on at least one committee.</div>
+        <div class="byl-section"><b>Section 14.3 — Requirements:</b> An Executive Board member must be a URCC member in good standing who has attained the age of twenty-one (21) years.</div>
+        <div class="byl-section"><b>Section 14.4 — Term Fulfillment — President:</b> In the event the President cannot fill his/her term, the Vice President shall assume the position.</div>
+        <div class="byl-section"><b>Section 14.5 — Term Fulfillment — Board Member:</b> In the event an Executive Board member cannot serve his/her full term, the President shall appoint a successor to complete the term.</div>
+        <div class="byl-section"><b>Section 14.6 — Members:</b> The Executive Board shall consist of 6 elected members: President, Vice President, Secretary, Treasurer, Governor, and Sergeant at Arms.</div>
+        <div class="byl-section"><b>Section 14.7 — Service Terms:</b> Executive Board members can only be elected for two consecutive (2) year terms in any given position.</div>
+
+        <div class="byl-article">Article 9: Duties of Elected Officers</div>
+        <div class="byl-section"><b>Section 15.1 — President:</b> Provides leadership and general charge and supervision of the affairs of the URCC. Presides at regular club meetings, maintains order, announces business in proper order, organizes committees, promotes club participation and harmony, and maintains relationships with sponsors and other clubs.</div>
+        <div class="byl-section"><b>Section 15.2 — Vice President:</b> Assists the President, presides at meetings in the President's absence, and coordinates social and charitable activities.</div>
+        <div class="byl-section"><b>Section 15.3 — Secretary:</b> Accurately records minutes of all meetings; maintains a history file; answers all club correspondence as directed; maintains a current version of the Constitution and By-Laws on the URCC website.</div>
+        <div class="byl-section"><b>Section 15.4 — Treasurer:</b> Manages the financial affairs of the club; reconciles bank statements; manages cash flow and deposits; presents the treasurer's report each month; prepares and files all required federal, state and local tax forms.</div>
+        <div class="byl-section"><b>Section 15.5 — Governor:</b> Represents the URCC at all United Council of Corvette Club (UCCC) meetings; ensures all URCC points and documents are completed and sent to the UCCC; provides a written quarterly governor's report on all national and regional UCCC events.</div>
+        <div class="byl-section"><b>Section 15.6 — Sergeant at Arms:</b> Carries out the instructions of the President; maintains order at each business meeting; performs administrative tasks including the election process; distributes and collects documents at meetings and records attendance.</div>
+        <div class="byl-section"><b>Section 15.7 — Removal from Office:</b> Failure to uphold the oath shall be cause for removal. The process includes an initial meeting with the Executive Board, a verbal warning, a written submission, and the right to defend one's position before a vote.</div>
+
+        <div class="byl-article">Article 10: Webmaster</div>
+        <div class="byl-section"><b>Section 16.1 — Webmaster:</b> The duties of the Webmaster include maintaining the website under the direction of the Executive Board.</div>
+
+        <div class="byl-article">Article 11: Voting</div>
+        <div class="byl-section"><b>Section 17.1 — Voting:</b> All actions including election of officers and amendment of the Constitution and By-Laws shall be by a majority vote of the members at a predesignated time and date.</div>
+        <div class="byl-section"><b>Section 17.2 — Vote:</b> Each full member shall be entitled to one (1) vote.</div>
+
+        <div class="byl-article">Article 12: Committee Information</div>
+        <div class="byl-section"><b>Section 18.1 — Committee Chair:</b> Appointed at the will of the President; leads the committee; sets course and direction; ensures adequate minutes are kept; reviews committee charge relative to the objectives of the President.</div>
+        <div class="byl-section"><b>Section 18.2 — Committee Budget:</b> The committee chair develops a proposed budget for events and submits it to the President. Any event requiring more than the budgeted amount must be presented to the Executive Board. Within two weeks of a completed event, the chair will present a profit and loss report to the Executive Board.</div>
+
+        <div class="byl-part">OPERATING PROCEDURES</div>
+
+        <div class="byl-article">Article 13: Events</div>
+        <div class="byl-section"><b>Section 19 — Calendar of Events:</b> An initial Calendar of Club Events shall be formulated by the Executive Board and submitted to the membership no later than the January business meeting. Any club event proposed after the calendar is approved shall be reviewed by the Executive Board to assure there is no conflict.</div>
+
+        <div class="byl-article">Article 14: Potential Membership</div>
+        <div class="byl-section"><b>Section 20.1 — Potential Member:</b> Membership is made by presenting a completed application along with the first year's dues to the Executive Board. Applications are reviewed within 45 days. Any member with dissenting votes shall present just cause to the Executive Board and the sponsor.</div>
+        <div class="byl-section"><b>Section 20.2 — Membership Materials:</b> Upon joining URCC, each new member will be granted access to the URCC website.</div>
+
+        <div class="byl-article">Article 15: Club Property / Finance</div>
+        <div class="byl-section"><b>Section 21.1 — Club Property:</b> All club equipment, papers, pictures and records shall remain the property of the URCC. All club membership records shall be held confidential and accessible only to club officers. An inventory of club property shall be maintained and inventoried biannually by the Vice President.</div>
+        <div class="byl-section"><b>Section 21.2 — Finance:</b> The Treasurer shall make available the Club Bank Statements for quarterly review at the January, April, July and October Executive Board Meetings.</div>
+
+        <div class="byl-article">Article 16: Expenditures</div>
+        <div class="byl-section"><b>Section 22.1 — Expenditure of Club Funds:</b> The Executive Board is authorized to approve expenditures up to $1,000 without club membership approval. Expenditures of $1,000 and above require approval of the majority of voting club members present at the regular club meeting.</div>
+        <div class="byl-section"><b>Section 22.2 — Reimbursement:</b> Reimbursement for expenditures shall be submitted with receipt within 30 days of the incurred expense and pre-approved by the President.</div>
+
+        <div class="byl-article">Article 17: Nominations and Elections</div>
+        <div class="byl-section"><b>Section 23.1 — Nominations:</b> All nominations must be submitted by the end of the September general business meeting. By September 30th the Secretary will publish all nominees. If no one is nominated: the President may appoint, the current officer's term may be extended, or an Executive Board member may assume 2 positions.</div>
+        <div class="byl-section"><b>Section 23.2 — Elections:</b> The Executive Board will determine how elections will be held.</div>
+
+        <div class="byl-article">Article 18: Awards Program</div>
+        <div class="byl-section"><b>Section 24 — Awards:</b> Members will be recognized for outstanding contributions through awards selected by the Executive Board and the President. Yearly awards include: Exceptional Service Award, Outstanding Service Award, and Service Award. The Executive Board may also determine additional award categories.</div>
+
+        <div class="byl-article">Article 19: Revisions</div>
+        <div class="byl-section"><b>Section 25 — Revisions:</b> The principal office, mailing, and email addresses can be changed as needed with a majority vote by the Executive Board and shall not require an amendment of these By-Laws.</div>
+
+        <div class="byl-article">Article 20: Personal Liability</div>
+        <div class="byl-section"><b>Section 26 — Personal Liability:</b> The Executive Board will determine yearly what liability insurances are required for the operation of the club.</div>
+
+        <div class="byl-article">Article 21: Expulsion</div>
+        <div class="byl-section"><b>Section 27 — Expulsion:</b> Any member may be suspended for infraction of the club By-Laws or for any other cause if a majority of the Executive Board deems such suspension to be in the best interest of the club. The member shall be immediately informed and given a reasonable opportunity to be heard by the Executive Board.</div>
+
+        <div class="byl-article">Article 22: Amendments</div>
+        <div class="byl-section"><b>Section 28.1 — Amendments to the Constitution and By-Laws:</b> The Executive Board may initiate amendments. Any ten members may petition the Executive Board to put a proposed amendment to vote. Members shall be advised in writing of any proposed amendment at least one month prior. This Constitution/By-Laws may be altered by a two-thirds majority of votes cast by the membership.</div>
+
+        <div class="byl-part">APPENDICES</div>
+
+        <div class="byl-article">Appendix A: Legacy Recognition Program</div>
+        <div class="byl-section">The Legacy Recognition Program provides recognition for time of service in the United Rays Corvette Club. Program milestones and gifts by years of service:</div>
+        <div class="byl-list">
+          <div class="byl-list-item"><span class="byl-yr">5 yrs</span> Certificate</div>
+          <div class="byl-list-item"><span class="byl-yr">10 yrs</span> Legacy Shirt (designed by the club)</div>
+          <div class="byl-list-item"><span class="byl-yr">15 yrs</span> Pin (designed by a club committee)</div>
+          <div class="byl-list-item"><span class="byl-yr">20 yrs</span> Plaque (designed by a club committee)</div>
+          <div class="byl-list-item"><span class="byl-yr">25 yrs</span> Apparel (Jacket)</div>
+          <div class="byl-list-item"><span class="byl-yr">30 yrs</span> Reduction in dues by 25%</div>
+          <div class="byl-list-item"><span class="byl-yr">35 yrs</span> Reduction in dues by 30%</div>
+          <div class="byl-list-item"><span class="byl-yr">40+ yrs</span> Reduction in dues by 50%</div>
+        </div>
+        <div class="byl-section">A previous United Ray member can regain previous years of service by completing a probation period of two years with Executive Board approval, paying dues for two consecutive years, and participating actively in 70% of all URCC activities.</div>
+
+        <div class="byl-article">Appendix B: Notes</div>
+        <div class="byl-section">The original constitution was modified in 2008 under the leadership of Ernie Groover. Revised November 16, 2016 under Tia Harris. Amended February 10, 2017 to include the Legacy Recognition Program under Louis McCauley. Reconstructed September 25, 2020 under Ruben Collins, and ratified by the Executive Board.</div>
+
+        <div class="byl-footer">United Rays Corvette Club of Pittsburgh, PA Inc. &nbsp;·&nbsp; Constitution &amp; By-Laws last revised September 30, 2020</div>
+      </div>
+    </section>
+
+    <!-- MINUTES -->
+    <section class="mp-panel" data-panel="minutes">
+      <div class="mp-ph"><span class="overline">Club Records</span><h2>Monthly Meeting Minutes</h2><p>Catch up on everything discussed at each club meeting.</p></div>
+      <div id="min-member-list"></div>
+    </section>
+
+    <!-- QUESTIONS -->
+    <section class="mp-panel" data-panel="questions">
+      <div class="mp-ph"><span class="overline">Member Voice</span><h2>Ask a Question</h2><p>Pick a meeting date and type your question. An officer will see it and address it at the meeting.</p></div>
+      <form class="mp-form-card" id="mp-q-form">
+        <div class="mp-field"><label for="q-f-date">Meeting Date</label><input type="date" id="q-f-date" /></div>
+        <div class="mp-field" style="margin-top:14px"><label for="q-f-text">Your Question</label>
+          <textarea id="q-f-text" style="width:100%;background:#0b0907;border:1px solid var(--line-strong);border-radius:7px;color:var(--ink);font-family:'Barlow';font-size:1rem;padding:13px 15px;min-height:120px;resize:vertical;transition:.2s" placeholder="e.g. Can we add a charity cruise to the summer calendar?"></textarea>
+        </div>
+        <button type="submit" class="btn btn-red" style="justify-content:center;margin-top:4px">Submit Question</button>
+      </form>
+      <div style="margin-top:28px">
+        <span class="overline">Your Submitted Questions</span>
+        <div id="q-member-list" style="margin-top:16px"></div>
+      </div>
+    </section>
+
+    <!-- DUES -->
+    <section class="mp-panel" data-panel="dues">
+      <div class="mp-ph"><span class="overline">Membership</span><h2>Pay Yearly Dues</h2><p>Send your annual dues via Zelle to the number below.</p></div>
+      <div class="zelle-card">
+        <div class="zelle-left">
+          <div class="zelle-z">Z</div>
+          <div>
+            <div class="zelle-label">Pay via Zelle</div>
+            <div class="zelle-num">412-420-4909</div>
+          </div>
+        </div>
+        <div class="zelle-instructions">
+          Open your banking app, select Zelle, and send payment to <b>412-420-4909</b>. Include your <b>full name</b> and <b>"2026 Dues"</b> in the memo so we can mark you as paid.
+        </div>
+      </div>
+    </section>
+
+    <!-- EVENTS -->
+    <section class="mp-panel" data-panel="events">
+      <div class="mp-ph"><span class="overline">Registration</span><h2>Pay for Events</h2><p>Send your event payment via Zelle. Include your name and the event name in the memo.</p></div>
+      <div class="zelle-card">
+        <div class="zelle-left">
+          <div class="zelle-z">Z</div>
+          <div>
+            <div class="zelle-label">Pay via Zelle</div>
+            <div class="zelle-num">412-420-4909</div>
+          </div>
+        </div>
+        <div class="zelle-instructions">
+          Open your banking app, select Zelle, and send payment to <b>412-420-4909</b>. Include your <b>full name</b> and the <b>event name</b> in the memo so we can confirm your spot.
+        </div>
+      </div>
+    </section>
+
+    <!-- ADMIN · MANAGE MEMBERS -->
+    <section class="mp-panel" data-panel="adminMembers">
+      <div class="mp-ph"><span class="overline">Administration</span><h2>Manage Members</h2><p>Review your current members and approve new applications submitted through the website.</p></div>
+
+      <div class="adm-tabs" id="adm-tabs">
+        <button type="button" data-atab="members" class="active">Members</button>
+        <button type="button" data-atab="apps">Applications <span class="adm-badge" id="adm-app-badge" style="display:none">0</span></button>
+      </div>
+
+      <!-- Current members -->
+      <div class="adm-sub" data-atab="members">
+        <div class="adm-stats" id="adm-stats">
+          <div class="adm-stat"><div class="v" id="adm-count-total">0</div><div class="k">Total Members</div></div>
+        </div>
+        <div class="adm-toolbar">
+          <span class="lbl">Member Roster</span>
+          <input type="search" class="adm-search" id="adm-search" placeholder="Search name or email…" />
+        </div>
+        <div class="adm-list" id="adm-list"></div>
+      </div>
+
+      <!-- Applications -->
+      <div class="adm-sub" data-atab="apps" hidden>
+        <div class="adm-note">New membership requests submitted through the website. Approve to add them to the roster, or decline to remove the request.</div>
+        <div class="adm-list" id="adm-applist"></div>
+      </div>
+    </section>
+
+    <!-- ADMIN · MANAGE MINUTES -->
+    <section class="mp-panel" data-panel="adminMinutes">
+      <div class="mp-ph"><span class="overline">Administration</span><h2>Manage Minutes</h2><p>Add or update meeting minutes for each month. Members will see them instantly.</p></div>
+      <div class="adm-addcard" id="min-form-card">
+        <h4 id="min-form-title">Add Meeting Minutes</h4>
+        <form id="min-admin-form">
+          <div class="adm-addrow" style="grid-template-columns:1fr 1fr auto;margin-bottom:14px">
+            <div class="f"><label for="min-f-month">Month</label><select id="min-f-month"></select></div>
+            <div class="f"><label for="min-f-title">Meeting Title</label><input type="text" id="min-f-title" placeholder="e.g. April Club Meeting" /></div>
+            <button type="submit" class="btn btn-red" id="min-f-submit" style="align-self:flex-end">Save Minutes</button>
+          </div>
+          <div class="mp-field"><label for="min-f-content">Meeting Minutes</label>
+            <textarea id="min-f-content" style="width:100%;background:#0b0907;border:1px solid var(--line-strong);border-radius:7px;color:var(--ink);font-family:'Barlow';font-size:1rem;padding:13px 15px;min-height:220px;resize:vertical;transition:.2s" placeholder="Type the full meeting minutes here..."></textarea>
+          </div>
+          <div style="display:flex;gap:12px;margin-top:8px">
+            <button type="button" class="adm-actbtn" id="min-f-cancel" style="display:none">Cancel Edit</button>
+          </div>
+        </form>
+      </div>
+      <div class="adm-toolbar" style="margin-top:8px">
+        <span class="lbl">Posted Minutes</span>
+      </div>
+      <div id="min-admin-list"></div>
+    </section>
+
+    <!-- ADMIN · QUESTIONS -->
+    <section class="mp-panel" data-panel="adminQuestions">
+      <div class="mp-ph"><span class="overline">Administration</span><h2>Member Questions</h2><p>Questions submitted by members for upcoming meetings. Mark answered once addressed.</p></div>
+      <div id="q-admin-list"></div>
+    </section>
+</div>
+
+<div class="mp-toast" id="mp-toast">✓ Saved</div>
+
+<!-- Application detail modal (admin) -->
+<div class="app-modal" id="app-modal">
+  <div class="app-modal-card">
+    <div class="app-modal-head">
+      <div class="adm-av" id="app-modal-av">UR</div>
+      <div class="nm"><b id="app-modal-name">Applicant</b><span id="app-modal-sub">—</span></div>
+      <button class="app-modal-close" id="app-modal-close" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="app-modal-body" id="app-modal-body"></div>
+    <div class="app-modal-foot" id="app-modal-foot"></div>
+  </div>
+</div>
+
+<!-- Firebase config (shared, edit firebase-config.js) -->
+<script src="firebase-config.js"></script>
+<script>
+(function(){
+  var SUPER_ADMIN = 'kyoungurcc@gmail.com';
+  var dashView=document.getElementById("mp-dash");
+  // Demo mode: show dashboard immediately (real mode uses Firebase gate)
+  if(!window.FIREBASE_READY){
+    dashView.classList.add("show");
+    // Set demo session as Kim Young (super admin)
+    try{ sessionStorage.setItem('ur_session_email','kyoungurcc@gmail.com'); sessionStorage.setItem('ur_session_name','Kim Young'); }catch(e){}
+    // Update profile card
+    document.getElementById('mp-avatar').textContent = 'KY';
+    document.getElementById('mp-username').textContent = 'Kim Young';
+    var ovH2 = document.querySelector('[data-panel="overview"] h2');
+    if(ovH2) ovH2.textContent = 'Hello, Kim';
+  }
+  document.getElementById("mp-signout").addEventListener("click",function(){
+    window.location.href="United Rays - Sign In.html";
+  });
+  // panel switching
+  var navBtns=document.querySelectorAll("#mp-nav button");
+  var panels=document.querySelectorAll(".mp-panel");
+  function setPanel(name){
+    navBtns.forEach(function(b){b.classList.toggle("active",b.dataset.panel===name);});
+    panels.forEach(function(p){p.classList.toggle("show",p.dataset.panel===name);});
+  }
+  navBtns.forEach(function(b){b.addEventListener("click",function(){setPanel(b.dataset.panel);});});
+  document.querySelectorAll(".mp-qcard").forEach(function(c){c.addEventListener("click",function(){setPanel(c.dataset.jump);});});
+  // toast
+  var toast=document.getElementById("mp-toast");var toastTimer;
+  function showToast(msg){toast.textContent="✓ "+msg;toast.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(function(){toast.classList.remove("show");},2600);}
+
+
+})();
+</script>
+
+<!-- Firebase real-mode: auth gate + admin reveal -->
+<script type="module">
+if(window.FIREBASE_READY){
+  const SUPER_ADMINS = ['kyoungurcc@gmail.com', 'carltonperryrocks@gmail.com'];
+  const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js");
+  const { getAuth, onAuthStateChanged, signOut } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+  const { getFirestore, collection, getDocs, query, where, doc, getDoc } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+  const app = initializeApp(window.FIREBASE_CONFIG);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  onAuthStateChanged(auth, async function(user){
+    if(!user){ window.location.href = 'United Rays - Sign In.html'; return; }
+    const email = (user.email||'').toLowerCase().trim();
+    const name = user.displayName || email.split('@')[0];
+    const parts = name.trim().split(/\s+/);
+    const inits = ((parts[0]?.[0]||'')+(parts[1]?.[0]||'')).toUpperCase();
+    // Update profile card
+    document.getElementById('mp-avatar').textContent = inits;
+    document.getElementById('mp-username').textContent = name;
+    const ovH2 = document.querySelector('[data-panel="overview"] h2');
+    if(ovH2) ovH2.textContent = 'Hello, '+parts[0];
+    // Show dashboard
+    document.getElementById('mp-dash').classList.add('show');
+    // Check admin status
+    const isSuper = SUPER_ADMINS.includes(email);
+    let isAdmin = isSuper;
+    if(!isAdmin){
+      try{
+        const snap = await getDocs(query(collection(db,'members'), where('email','==',email)));
+        if(!snap.empty && snap.docs[0].data().role === 'admin') isAdmin = true;
+      }catch(e){}
+    }
+    if(isAdmin) window.UR_AdminUI && window.UR_AdminUI.reveal();
+    // Sign-out wires Firebase signOut
+    document.getElementById('mp-signout').addEventListener('click', async function(){
+      await signOut(auth);
+      sessionStorage.removeItem('ur_session_email');
+      sessionStorage.removeItem('ur_session_name');
+      window.location.href = 'United Rays - Sign In.html';
+    });
+  });
+}
+</script>
+<script>
+window.UR_AdminUI = (function(){
+  var memberP = null, appP = null;
+  var members = [], apps = [];
+  var listEl, searchEl, appListEl, badgeEl;
+  var toastEl, toastTimer;
+  function toast(msg){
+    toastEl = toastEl || document.getElementById("mp-toast");
+    toastEl.textContent = "✓ " + msg; toastEl.classList.add("show");
+    clearTimeout(toastTimer); toastTimer = setTimeout(function(){ toastEl.classList.remove("show"); }, 2600);
+  }
+  function initials(name){
+    if(!name) return "UR";
+    var p = name.trim().split(/\s+/);
+    return ((p[0]?.[0]||"") + (p[1]?.[0]||"")).toUpperCase() || "UR";
+  }
+  function fmtDate(d){
+    if(!d) return "—";
+    var dt = new Date(d);
+    if(isNaN(dt)) return String(d);
+    return dt.toLocaleDateString("en-US", { month:"short", day:"numeric", year:"numeric" });
+  }
+  function fmtDuration(dateStr){
+    if(!dateStr) return "";
+    var d = new Date(dateStr); if(isNaN(d)) return "";
+    var now = new Date();
+    var m = (now.getFullYear()-d.getFullYear())*12 + (now.getMonth()-d.getMonth());
+    m = Math.max(0,m);
+    if(m===0) return "< 1 mo";
+    if(m<12) return m+" mo"+(m===1?"":"s");
+    var yrs=Math.floor(m/12), mos=m%12;
+    if(mos===0) return yrs+" yr"+(yrs===1?"":"s");
+    return yrs+" yr"+(yrs===1?"":"s")+" "+mos+" mo"+(mos===1?"":"s");
+  }
+  function el(tag, cls, txt){ var e=document.createElement(tag); if(cls)e.className=cls; if(txt!=null)e.textContent=txt; return e; }
+
+  /* ---------- Members ---------- */
+  function renderStats(){
+    document.getElementById("adm-count-total").textContent = members.length;
+  }
+  function renderMembers(){
+    renderStats();
+    var q = (searchEl.value||"").toLowerCase().trim();
+    var rows = members.filter(function(m){
+      return !q || (m.name||"").toLowerCase().includes(q) || (m.email||"").toLowerCase().includes(q);
+    }).sort(function(a,b){ return (a.name||a.email).localeCompare(b.name||b.email); });
+    listEl.innerHTML = "";
+    if(!rows.length){ listEl.appendChild(el("div","adm-empty", q ? "No members match your search." : "No members yet.")); return; }
+    rows.forEach(function(m){
+      var row = el("div","adm-row"+(m.active===false?" suspended":""));
+      var who = el("div","adm-who");
+      who.appendChild(el("div","adm-av", initials(m.name||m.email)));
+      var nm = el("div","nm");
+      nm.appendChild(el("b", null, m.name||"(no name)"));
+      nm.appendChild(el("span", null, m.email));
+      who.appendChild(nm);
+      row.appendChild(who);
+      var roleWrap = el("div"); roleWrap.appendChild(el("span","pill "+(m.role==="admin"?"officer":"member"), m.role==="admin"?"Officer":"Member")); row.appendChild(roleWrap);
+      var statusWrap = el("div"); statusWrap.appendChild(el("span","pill "+(m.active===false?"susp":"active"), m.active===false?"Suspended":"Active")); row.appendChild(statusWrap);
+      var joinedCell = el("div","adm-joined"); joinedCell.appendChild(el("span",null,fmtDate(m.joined))); joinedCell.appendChild(el("span","adm-dur",fmtDuration(m.joined))); row.appendChild(joinedCell);
+      var acts = el("div","adm-acts");
+      if(m.role !== "admin"){
+        var adminBtn = el("button","adm-actbtn","Make Admin");
+        adminBtn.onclick = function(){ if(confirm("Make "+(m.name||m.email)+" an admin? They'll be able to manage members and applications.")) doUpdate(m.email, { role:"admin" }, (m.name||m.email)+" is now an admin"); };
+        acts.appendChild(adminBtn);
+      }
+      var rmBtn = el("button","adm-actbtn danger","Remove");
+      rmBtn.onclick = function(){ if(confirm("Remove "+(m.name||m.email)+"? They will lose portal access.")) doRemove(m.email, (m.name||m.email)); };
+      acts.appendChild(rmBtn);
+      row.appendChild(acts);
+      listEl.appendChild(row);
+    });
+  }
+  async function refreshMembers(){ members = await memberP.list(); renderMembers(); renderDirectory(); }
+  async function doUpdate(email, patch, msg){ await memberP.update(email, patch); await refreshMembers(); toast(msg); }
+  async function doRemove(email, label){ await memberP.remove(email); await refreshMembers(); toast("Removed "+label); }
+
+  /* ---------- Applications ---------- */
+  function renderApps(){
+    var n = apps.length;
+    if(badgeEl){ badgeEl.textContent = n; badgeEl.style.display = n ? "inline-grid" : "none"; }
+    appListEl.innerHTML = "";
+    if(!n){ appListEl.appendChild(el("div","adm-empty","No pending applications.")); return; }
+    apps.slice().sort(function(a,b){ return new Date(a.applied||0) - new Date(b.applied||0); }).forEach(function(a){
+      var row = el("div","adm-row");
+      var who = el("div","adm-who");
+      who.appendChild(el("div","adm-av", initials(a.name||a.email)));
+      var nm = el("div","nm");
+      nm.appendChild(el("b", null, a.name||"(no name)"));
+      nm.appendChild(el("span", null, a.email));
+      who.appendChild(nm);
+      row.appendChild(who);
+      var statusWrap = el("div"); statusWrap.appendChild(el("span","pill member","Pending")); row.appendChild(statusWrap);
+      row.appendChild(el("div","adm-joined", fmtDate(a.applied)));
+      // spacer cell to keep 4-col grid (role column empty)
+      var spacer = el("div"); row.appendChild(spacer);
+      var acts = el("div","adm-acts");
+      var blurb = a.whyJoin || a.message;
+      if(blurb){ var msg = el("div","adm-msg", "\u201C"+blurb+"\u201D"); msg.style.flexBasis="100%"; acts.appendChild(msg); }
+      var viewBtn = el("button","adm-actbtn view","View Application");
+      viewBtn.onclick = function(){ viewApp(a); };
+      var approveBtn = el("button","adm-actbtn approve","Approve & Add");
+      approveBtn.onclick = function(){ doApprove(a); };
+      var declineBtn = el("button","adm-actbtn danger","Decline");
+      declineBtn.onclick = function(){ if(confirm("Decline "+(a.name||a.email)+"'s application?")) doDecline(a); };
+      acts.appendChild(viewBtn); acts.appendChild(approveBtn); acts.appendChild(declineBtn);
+      row.appendChild(acts);
+      appListEl.appendChild(row);
+    });
+  }
+  async function refreshApps(){ apps = appP ? await appP.list() : []; renderApps(); }
+  async function doApprove(a){
+    await memberP.add({ name:a.name, email:a.email, phone:a.phone||"", role:"member", active:true, joined:new Date().toISOString().slice(0,10) });
+    if(appP) await appP.remove(a.email);
+    await refreshMembers(); await refreshApps();
+    toast("Approved "+(a.name||a.email)+" — added to members");
+  }
+  async function doDecline(a){ if(appP) await appP.remove(a.email); await refreshApps(); toast("Declined "+(a.name||a.email)); }
+
+  /* ---------- Member Directory (visible to all members) ---------- */
+  function renderDirectory(){
+    var dirEl = document.getElementById("mp-directory"); if(!dirEl) return;
+    dirEl.innerHTML = "";
+    var active = members.filter(function(m){ return m.active !== false; })
+                        .sort(function(a,b){ return (a.name||a.email).localeCompare(b.name||b.email); });
+    if(!active.length){ dirEl.appendChild(el("div","adm-empty","No members yet.")); return; }
+    active.forEach(function(m){
+      var card = el("div","dir-card");
+      var av = el("div","adm-av",initials(m.name||m.email)); av.style.cssText="width:46px;height:46px;font-size:1.3rem;flex:none"; card.appendChild(av);
+      var info = el("div","dir-info");
+      var nameLine = el("div","dir-name"); nameLine.appendChild(el("b",null,m.name||"(no name)")); nameLine.appendChild(el("span","pill "+(m.role==="admin"?"officer":"member"), m.role==="admin"?"Officer":"Member")); if(m.joined){ nameLine.appendChild(el("span","adm-dur",fmtDuration(m.joined))); } info.appendChild(nameLine);
+      var contactLine = el("div","dir-contact");
+      var emailA = document.createElement("a"); emailA.href="mailto:"+m.email; emailA.textContent=m.email; emailA.className="dir-link"; contactLine.appendChild(emailA);
+      if(m.phone && m.phone.trim()){ contactLine.appendChild(el("span","dir-sep","·")); var phoneA = document.createElement("a"); phoneA.href="tel:"+m.phone.replace(/\D/g,""); phoneA.textContent=m.phone; phoneA.className="dir-link"; contactLine.appendChild(phoneA); }
+      info.appendChild(contactLine);
+      card.appendChild(info);
+      dirEl.appendChild(card);
+    });
+  }
+
+  /* ---------- Application Detail Modal ---------- */
+  var modalEl, modalBound=false, modalApp=null;
+  function fld(k, v){
+    var f = el("div","app-field");
+    f.appendChild(el("div","k", k));
+    var has = v!=null && String(v).trim()!=="";
+    f.appendChild(el("div","v"+(has?"":" empty"), has ? String(v) : "Not provided"));
+    return f;
+  }
+  function sec(title, fields){
+    var any = fields.some(function(p){ return p[1]!=null && String(p[1]).trim()!==""; });
+    var s = el("div","app-sec");
+    s.appendChild(el("h4", null, title));
+    fields.forEach(function(p){ s.appendChild(fld(p[0], p[1])); });
+    return s;
+  }
+  function viewApp(a){
+    modalEl = modalEl || document.getElementById("app-modal");
+    if(!modalEl) return;
+    modalApp = a;
+    document.getElementById("app-modal-av").textContent = initials(a.name||a.email);
+    document.getElementById("app-modal-name").textContent = a.name || "(no name)";
+    document.getElementById("app-modal-sub").textContent = (a.memberType ? a.memberType+" · " : "") + "Applied "+fmtDate(a.applied);
+    var body = document.getElementById("app-modal-body");
+    body.innerHTML = "";
+    body.appendChild(sec("Personal Information", [
+      ["Full Name", a.name],
+      ["Email", a.email],
+      ["Phone", a.phone],
+      ["Address", a.address]
+    ]));
+    body.appendChild(sec("Corvette", [
+      ["Vehicle", a.corvette],
+      ["VIN (last 6)", a.corvetteVin],
+      ["Features / Mods", a.corvetteFeatures]
+    ]));
+    body.appendChild(sec("Membership", [
+      ["Type", a.memberType],
+      ["Sponsor", a.sponsor],
+      ["How they heard", a.howHeard]
+    ]));
+    body.appendChild(sec("About", [
+      ["Why join", a.whyJoin || a.message],
+      ["Community involvement", a.community],
+      ["Additional notes", a.extra]
+    ]));
+    var foot = document.getElementById("app-modal-foot");
+    foot.innerHTML = "";
+    var approveBtn = el("button","adm-actbtn approve","Approve & Add");
+    approveBtn.onclick = function(){ closeModal(); doApprove(a); };
+    var declineBtn = el("button","adm-actbtn danger","Decline");
+    declineBtn.onclick = function(){ if(confirm("Decline "+(a.name||a.email)+"'s application?")){ closeModal(); doDecline(a); } };
+    var closeBtn = el("button","adm-actbtn","Close");
+    closeBtn.onclick = closeModal;
+    foot.appendChild(closeBtn); foot.appendChild(declineBtn); foot.appendChild(approveBtn);
+    if(!modalBound){
+      modalBound = true;
+      document.getElementById("app-modal-close").onclick = closeModal;
+      modalEl.addEventListener("click", function(e){ if(e.target===modalEl) closeModal(); });
+      document.addEventListener("keydown", function(e){ if(e.key==="Escape" && modalEl.classList.contains("show")) closeModal(); });
+    }
+    modalEl.classList.add("show");
+  }
+  function closeModal(){ if(modalEl) modalEl.classList.remove("show"); modalApp=null; }
+
+  /* ---------- Tabs ---------- */
+  function setupTabs(){
+    var tabs = document.querySelectorAll("#adm-tabs button");
+    var subs = document.querySelectorAll('.adm-sub[data-atab]');
+    tabs.forEach(function(t){ t.addEventListener("click", function(){
+      tabs.forEach(function(x){ x.classList.toggle("active", x===t); });
+      subs.forEach(function(s){ s.hidden = (s.getAttribute("data-atab") !== t.getAttribute("data-atab")); });
+    }); });
+  }
+
+  return {
+    reveal: function(){ var g=document.getElementById("mp-admin-group"); if(g) g.style.display=""; },
+    refreshDirectory: function(){ renderDirectory(); },
+    init: function(memberProvider, appProvider){
+      memberP = memberProvider; appP = appProvider || null;
+      listEl = document.getElementById("adm-list");
+      searchEl = document.getElementById("adm-search");
+      appListEl = document.getElementById("adm-applist");
+      badgeEl = document.getElementById("adm-app-badge");
+      if(!listEl) return;
+      searchEl.addEventListener("input", renderMembers);
+      setupTabs();
+      refreshMembers();
+      refreshApps();
+    }
+  };
+})();
+</script>
+
+<!-- Demo mode: show admin panel with sample roster + applications (localStorage) -->
+<script>
+if(!window.FIREBASE_READY){
+  (function(){
+    var MKEY = "ur_demo_members", AKEY = "ur_demo_applications";
+    var memberSeed = [
+      { name:"Kim Young", email:"kyoungurcc@gmail.com", phone:"(412) 555-0101", role:"admin", active:true, joined:"2019-03-12" },
+      { name:"Marcus Lee", email:"marcus.lee@gmail.com", phone:"(412) 555-0234", role:"member", active:true, joined:"2021-06-01" },
+      { name:"Denise Carter", email:"denise.carter@gmail.com", phone:"(412) 555-0378", role:"member", active:true, joined:"2022-08-19" },
+      { name:"Rob Harris", email:"rob.harris@gmail.com", phone:"(412) 555-0512", role:"member", active:false, joined:"2020-05-03" },
+      { name:"Angela Brooks", email:"angela.brooks@gmail.com", phone:"(724) 555-0689", role:"member", active:true, joined:"2023-04-27" }
+    ];
+    var appSeed = [
+      { name:"Tyrone Walker", email:"tyrone.walker@gmail.com", applied:"2026-06-20",
+        phone:"(412) 555-0182", address:"482 Brushton Ave, Pittsburgh, PA 15208",
+        corvette:"1978 · C3 Indy Pace Car Edition", corvetteVin:"904221", corvetteFeatures:"Original matching numbers, silver anniversary two-tone paint, L82 350.",
+        memberType:"Full Member", sponsor:"Denise Carter", howHeard:"Current member referral",
+        whyJoin:"Just picked up a '78 Pace Car and restored it over the winter. I'd love to join a family that takes pride in these cars and gives back to Pittsburgh.",
+        community:"Volunteer with Penn Hills food drive; member of the Steel City Cruisers.", extra:"Available for summer cruises May–September.", status:"pending" },
+      { name:"Lisa Monroe", email:"lisa.monroe@gmail.com", applied:"2026-06-23",
+        phone:"(724) 555-0147", address:"19 Lincoln Way, McKeesport, PA 15131",
+        corvette:"", corvetteVin:"", corvetteFeatures:"",
+        memberType:"Associate Member", sponsor:"Denise Carter", howHeard:"Car show / cruise",
+        whyJoin:"I've been a Corvette enthusiast for years and a friend of Denise's. I don't own a Vette yet but I'm saving for a C7 and would love to be part of the summer cruises.",
+        community:"", extra:"", status:"pending" },
+      { name:"Gerald Hampton", email:"g.hampton@outlook.com", applied:"2026-06-18",
+        phone:"(412) 555-0309", address:"7 Frankstown Rd, Pittsburgh, PA 15235",
+        corvette:"2002 · C5 Z06", corvetteVin:"118744", corvetteFeatures:"Electron Blue, LS6 405hp, Borla exhaust, original owner.",
+        memberType:"Full Member", sponsor:"Marcus Lee", howHeard:"UCCC / CCWP",
+        whyJoin:"Retired now and finally have time to enjoy the car and the community. Marcus has told me great things about the Rays for years.",
+        community:"Deacon at Mt. Ararat Baptist; 20 years with the UCCC.", extra:"Happy to help organize fundraisers — did event planning in my career.", status:"pending" },
+      { name:"Andre & Pam Foster", email:"fosters412@gmail.com", applied:"2026-06-24",
+        phone:"(412) 555-0461", address:"230 Lincoln Ave, Pittsburgh, PA 15206",
+        corvette:"1985 · C4 Coupe", corvetteVin:"205518", corvetteFeatures:"Bright red, targa top, tuned-port injection. Bought it the year we got married.",
+        memberType:"Full Member", sponsor:"Angela Brooks", howHeard:"Facebook / social media",
+        whyJoin:"We've followed the club's cruises on Facebook and want to share the hobby together as a couple. The community work is what really drew us in.",
+        community:"Volunteer at the Pittsburgh Vintage Grand Prix.", extra:"", status:"pending" },
+      { name:"Carla Reyes", email:"carla.reyes88@gmail.com", applied:"2026-06-12",
+        phone:"(412) 555-0254", address:"54 Greenfield Ave, Pittsburgh, PA 15217",
+        corvette:"2020 · C8 Stingray", corvetteVin:"339072", corvetteFeatures:"Sebring Orange, 2LT, magnetic ride. First mid-engine in the family I hope!",
+        memberType:"Full Member", sponsor:"Rob Harris", howHeard:"Car show / cruise",
+        whyJoin:"Met a few members at the Schenley Park show and loved the energy. I'm one of the younger Vette owners and want to bring some fresh faces to the club.",
+        community:"Mentor with Big Brothers Big Sisters of Greater Pittsburgh.", extra:"Run a small auto-detailing business — happy to detail cars before shows.", status:"pending" }
+    ];
+    function load(k){ try{ var v=JSON.parse(localStorage.getItem(k)); return Array.isArray(v)?v:null; }catch(e){ return null; } }
+    function save(k,arr){ try{ localStorage.setItem(k, JSON.stringify(arr)); }catch(e){} }
+    var MSEED_VER = "2026-06-25-members-v3";
+    if(!load(MKEY) || localStorage.getItem("ur_demo_members_ver") !== MSEED_VER){
+      save(MKEY, memberSeed);
+      try{ localStorage.setItem("ur_demo_members_ver", MSEED_VER); }catch(e){}
+    }
+    // Re-seed demo applications when the sample set changes (demo data only)
+    var ASEED_VER = "2026-06-25-apps-v2";
+    if(!load(AKEY) || localStorage.getItem("ur_demo_apps_ver") !== ASEED_VER){
+      save(AKEY, appSeed);
+      try{ localStorage.setItem("ur_demo_apps_ver", ASEED_VER); }catch(e){}
+    }
+    var memberProvider = {
+      list: async function(){ return load(MKEY) || []; },
+      add: async function(rec){ var a=load(MKEY)||[]; a.push(rec); save(MKEY,a); },
+      update: async function(email, patch){ var a=load(MKEY)||[]; a=a.map(function(m){ return m.email===email ? Object.assign({}, m, patch) : m; }); save(MKEY,a); },
+      remove: async function(email){ save(MKEY, (load(MKEY)||[]).filter(function(m){ return m.email!==email; })); }
+    };
+    var appProvider = {
+      list: async function(){ return load(AKEY) || []; },
+      remove: async function(email){ save(AKEY, (load(AKEY)||[]).filter(function(a){ return a.email!==email; })); }
+    };
+    UR_AdminUI.reveal();
+    UR_AdminUI.init(memberProvider, appProvider);
+  })();
+}
+</script>
+
+<!-- Shared Questions UI -->
+<script>
+window.UR_QuestionsUI = (function(){
+  var qProvider = null;
+  var toastEl, toastTimer;
+  function toast(msg){ toastEl=toastEl||document.getElementById("mp-toast"); toastEl.textContent="✓ "+msg; toastEl.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(function(){toastEl.classList.remove("show");},2600); }
+  function el(tag,cls,txt){ var e=document.createElement(tag); if(cls)e.className=cls; if(txt!=null)e.textContent=txt; return e; }
+  function fmtDate(d){ if(!d) return "—"; var dt=new Date(d+"T12:00:00"); return isNaN(dt)?d:dt.toLocaleDateString("en-US",{weekday:"short",month:"long",day:"numeric",year:"numeric"}); }
+  var currentUserEmail = "";
+
+  function renderMember(list){
+    var el2=document.getElementById("q-member-list"); if(!el2) return;
+    el2.innerHTML="";
+    var mine=list.filter(function(q){ return !currentUserEmail || q.memberEmail===currentUserEmail; })
+                 .sort(function(a,b){ return b.submitted.localeCompare(a.submitted); });
+    if(!mine.length){ el2.appendChild(el("div","min-empty","You haven't submitted any questions yet.")); return; }
+    mine.forEach(function(q){
+      var row=el("div","mp-row"); row.style.alignItems="flex-start"; row.style.gap="14px";
+      var grow=el("div","grow");
+      grow.appendChild(el("b",null,"\u201C"+q.question+"\u201D"));
+      grow.appendChild(el("p",null,"For meeting on "+fmtDate(q.meetingDate)));
+      row.appendChild(grow);
+      row.appendChild(el("span","mp-tag "+(q.status==="answered"?"paid":"open"), q.status==="answered"?"Answered":"Pending"));
+      el2.appendChild(row);
+    });
+  }
+
+  function renderAdmin(list){
+    var el2=document.getElementById("q-admin-list"); if(!el2) return;
+    el2.innerHTML="";
+    var sorted=list.slice().sort(function(a,b){ return a.meetingDate.localeCompare(b.meetingDate); });
+    if(!sorted.length){ el2.appendChild(el("div","adm-empty","No questions submitted yet.")); return; }
+    sorted.forEach(function(q){
+      var row=el("div","adm-row"); row.style.gridTemplateColumns="1fr"; row.style.gap="10px";
+      var top=el("div"); top.style.cssText="display:flex;align-items:center;gap:14px;flex-wrap:wrap";
+      var who=el("div","adm-who");
+      who.appendChild(el("div","adm-av", (q.memberName||"?")[0].toUpperCase()));
+      var nm=el("div","nm"); nm.appendChild(el("b",null,q.memberName||"Member")); nm.appendChild(el("span",null,q.memberEmail||"")); who.appendChild(nm);
+      top.appendChild(who);
+      var datePill=el("span","pill member","Meeting: "+fmtDate(q.meetingDate)); top.appendChild(datePill);
+      top.appendChild(el("span","mp-tag "+(q.status==="answered"?"paid":"open"), q.status==="answered"?"Answered":"Pending"));
+      row.appendChild(top);
+      var qText=el("div"); qText.style.cssText="color:var(--ink);font-size:1.02rem;padding:4px 0 2px"; qText.textContent="\u201C"+q.question+"\u201D"; row.appendChild(qText);
+      var acts=el("div","adm-acts");
+      if(q.status!=="answered"){
+        var ansBtn=el("button","adm-actbtn approve","Mark Answered");
+        ansBtn.onclick=function(){ doUpdate(q.id,{status:"answered"},"Marked answered"); };
+        acts.appendChild(ansBtn);
+      }
+      var delBtn=el("button","adm-actbtn danger","Delete");
+      delBtn.onclick=function(){ if(confirm("Delete this question?")) doDelete(q.id); };
+      acts.appendChild(delBtn);
+      row.appendChild(acts);
+      el2.appendChild(row);
+    });
+  }
+
+  async function refresh(){ var list=await qProvider.list(); renderMember(list); renderAdmin(list); }
+  async function doUpdate(id,patch,msg){ await qProvider.update(id,patch); await refresh(); toast(msg); }
+  async function doDelete(id){ await qProvider.remove(id); await refresh(); toast("Question deleted"); }
+
+  function setupForm(){
+    var form=document.getElementById("mp-q-form"); if(!form) return;
+    var dateEl=document.getElementById("q-f-date");
+    if(dateEl) dateEl.min=new Date().toISOString().slice(0,10);
+    form.addEventListener("submit",async function(e){
+      e.preventDefault();
+      var date=(document.getElementById("q-f-date")||{}).value||"";
+      var text=(document.getElementById("q-f-text")||{}).value.trim();
+      if(!date){ alert("Please pick a meeting date."); return; }
+      if(!text){ alert("Please type your question."); return; }
+      var id="q_"+Date.now();
+      await qProvider.add({ id:id, memberName:window.UR_CURRENT_USER&&window.UR_CURRENT_USER.name||"Member", memberEmail:window.UR_CURRENT_USER&&window.UR_CURRENT_USER.email||currentUserEmail, meetingDate:date, question:text, status:"pending", submitted:new Date().toISOString().slice(0,10) });
+      document.getElementById("q-f-text").value="";
+      document.getElementById("q-f-date").value="";
+      await refresh(); toast("Question submitted!");
+    });
+  }
+
+  return {
+    init: function(provider, userEmail){
+      qProvider=provider; currentUserEmail=userEmail||"";
+      setupForm(); refresh();
+    },
+    refresh: refresh
+  };
+})();
+</script>
+
+<!-- Demo questions seed -->
+<script>
+if(!window.FIREBASE_READY){
+  (function(){
+    var KEY="ur_demo_questions";
+    var seed=[
+      { id:"q1", memberName:"Marcus Lee", memberEmail:"marcus.lee@gmail.com", meetingDate:"2026-07-12", question:"Can we add a charity cruise to the summer calendar this year?", status:"pending", submitted:"2026-06-18" },
+      { id:"q2", memberName:"Angela Brooks", memberEmail:"angela.brooks@gmail.com", meetingDate:"2026-07-12", question:"What's the plan for club polos this season?", status:"answered", submitted:"2026-06-10" }
+    ];
+    function load(){ try{ var v=JSON.parse(localStorage.getItem(KEY)); return Array.isArray(v)?v:null; }catch(e){ return null; } }
+    function save(arr){ try{ localStorage.setItem(KEY,JSON.stringify(arr)); }catch(e){} }
+    if(!load()) save(seed);
+    var qProvider={
+      list: async function(){ return load()||[]; },
+      add: async function(rec){ var a=load()||[]; a.push(rec); save(a); },
+      update: async function(id,patch){ var a=load()||[]; a=a.map(function(q){return q.id===id?Object.assign({},q,patch):q;}); save(a); },
+      remove: async function(id){ save((load()||[]).filter(function(q){return q.id!==id;})); }
+    };
+    window.UR_CURRENT_USER = { name:"Ray Member", email:"member@unitedrays.com" };
+    UR_QuestionsUI.init(qProvider,"member@unitedrays.com");
+  })();
+}
+</script>
+
+<!-- Shared Minutes UI -->
+<script>
+window.UR_MinutesUI = (function(){
+  var memberP = null;
+  var toastEl, toastTimer;
+  function toast(msg){ toastEl=toastEl||document.getElementById("mp-toast"); toastEl.textContent="✓ "+msg; toastEl.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(function(){toastEl.classList.remove("show");},2600); }
+  function el(tag,cls,txt){ var e=document.createElement(tag); if(cls)e.className=cls; if(txt!=null)e.textContent=txt; return e; }
+  function fmtMon(id){ var d=new Date(id+"-02"); return isNaN(d)?id:d.toLocaleDateString("en-US",{month:"long",year:"numeric"}); }
+  function dayNum(id){ return id.slice(5,7); }
+  function yearShort(id){ return "'"+id.slice(2,4); }
+
+  /* --- Member view --- */
+  function renderMember(list){
+    var el2=document.getElementById("min-member-list"); if(!el2) return;
+    el2.innerHTML="";
+    var sorted=list.slice().sort(function(a,b){return b.id.localeCompare(a.id);});
+    if(!sorted.length){ el2.appendChild(el("div","min-empty","No minutes posted yet — check back after the next meeting.")); return; }
+    sorted.forEach(function(m){
+      var row=el("div","min-row");
+      var hdr=el("button","min-header");
+      var _dt=new Date(m.id+"-02"),_mon=_dt.toLocaleDateString("en-US",{month:"short"}).toUpperCase(),_yr=_dt.getFullYear();
+      var dateDiv=el("div","date"); dateDiv.appendChild(el("b",null,_mon)); dateDiv.appendChild(el("span",null,_yr));
+      hdr.appendChild(dateDiv);
+      var grow=el("div","grow"); grow.appendChild(el("b",null,m.title||fmtMon(m.id)));
+      var preview=el("p",null,(m.content||"").slice(0,80)+((m.content||length)>80?"…":""));
+      grow.appendChild(preview); hdr.appendChild(grow);
+      var chev=document.createElementNS("http://www.w3.org/2000/svg","svg"); chev.setAttribute("viewBox","0 0 24 24"); chev.setAttribute("class","min-chevron");
+      var path=document.createElementNS("http://www.w3.org/2000/svg","polyline"); path.setAttribute("points","6 9 12 15 18 9"); chev.appendChild(path);
+      hdr.appendChild(chev);
+      hdr.onclick=function(){row.classList.toggle("open");};
+      row.appendChild(hdr);
+      var body=el("div","min-body");
+    if(m.content){ body.appendChild(el("div","min-content",m.content)); }
+      row.appendChild(body);
+      el2.appendChild(row);
+    });
+  }
+
+  /* --- Admin view --- */
+  var editingId=null;
+  function populateMonthSelect(){
+    var sel=document.getElementById("min-f-month"); if(!sel) return;
+    sel.innerHTML="";
+    var now=new Date();
+    var currentId=now.getFullYear()+"-"+("0"+(now.getMonth()+1)).slice(-2);
+    for(var i=12;i>=-12;i--){
+      var d=new Date(now.getFullYear(),now.getMonth()-i,1);
+      var id=d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2);
+      var opt=document.createElement("option"); opt.value=id;
+      opt.textContent=d.toLocaleDateString("en-US",{month:"long",year:"numeric"});
+      if(id===currentId) opt.selected=true;
+      sel.appendChild(opt);
+    }
+  }
+  function renderAdmin(list){
+    var el2=document.getElementById("min-admin-list"); if(!el2) return;
+    el2.innerHTML="";
+    var sorted=list.slice().sort(function(a,b){return b.id.localeCompare(a.id);});
+    if(!sorted.length){ el2.appendChild(el("div","adm-empty","No minutes posted yet — add the first entry above.")); return; }
+    sorted.forEach(function(m){
+      var row=el("div","mp-row");
+      var _dt2=new Date(m.id+"-02"),_mon2=_dt2.toLocaleDateString("en-US",{month:"short"}).toUpperCase(),_yr2=_dt2.getFullYear();
+      var dateDiv=el("div","date"); dateDiv.appendChild(el("b",null,_mon2)); dateDiv.appendChild(el("span",null,_yr2));
+      row.appendChild(dateDiv);
+      var grow=el("div","grow"); grow.appendChild(el("b",null,m.title||fmtMon(m.id)));
+      var snippet=el("p",null,(m.content||"").slice(0,60)+((m.content||"").length>60?"…":"")); grow.appendChild(snippet);
+      row.appendChild(grow);
+      var editBtn=el("button","mp-link-btn","Edit →");
+      editBtn.onclick=function(){ startEdit(m); };
+      var delBtn=el("button","adm-actbtn danger","Delete");
+      delBtn.onclick=function(){ if(confirm("Delete minutes for "+(m.title||fmtMon(m.id))+"?")) doDelete(m.id); };
+      var acts=el("div",null); acts.style.cssText="display:flex;gap:10px;align-items:center"; acts.appendChild(editBtn); acts.appendChild(delBtn);
+      row.appendChild(acts);
+      el2.appendChild(row);
+    });
+  }
+  function startEdit(m){
+    editingId=m.id;
+    document.getElementById("min-f-month").value=m.id;
+    document.getElementById("min-f-title").value=m.title||"";
+    document.getElementById("min-f-content").value=m.content||"";
+    document.getElementById("min-f-pdf").value=m.pdfUrl||"";
+    document.getElementById("min-form-title").textContent="Edit Minutes";
+    document.getElementById("min-f-submit").textContent="Update Minutes";
+    document.getElementById("min-f-cancel").style.display="";
+    document.getElementById("min-form-card").scrollIntoView&&document.getElementById("min-form-card").scrollIntoView({behavior:"smooth"});
+  }
+  function cancelEdit(){
+    editingId=null;
+    document.getElementById("min-admin-form").reset();
+    document.getElementById("min-form-title").textContent="Add Meeting Minutes";
+    document.getElementById("min-f-submit").textContent="Save Minutes";
+    document.getElementById("min-f-cancel").style.display="none";
+  }
+  async function doDelete(id){ await memberP.remove(id); await refresh(); toast("Minutes deleted"); }
+  async function handleSubmit(e){
+    e.preventDefault();
+    var id=document.getElementById("min-f-month").value;
+    var title=document.getElementById("min-f-title").value.trim();
+    var content=document.getElementById("min-f-content").value.trim();
+    var pdfUrl="";
+    if(!content){ alert("Please type in the meeting minutes before saving."); return; }
+    var rec={id:id, title:title||fmtMon(id), content:content, pdfUrl:pdfUrl, updated:new Date().toISOString().slice(0,10)};
+    if(editingId){ await memberP.update(editingId, rec); toast("Minutes updated"); } 
+    else { await memberP.add(rec); toast("Minutes posted"); }
+    cancelEdit(); await refresh();
+  }
+
+  async function refresh(){
+    var list=await memberP.list();
+    renderMember(list);
+    renderAdmin(list);
+  }
+
+  return {
+    init: function(provider){
+      memberP=provider;
+      populateMonthSelect();
+      var form=document.getElementById("min-admin-form"); if(form) form.addEventListener("submit",handleSubmit);
+      var cancel=document.getElementById("min-f-cancel"); if(cancel) cancel.addEventListener("click",cancelEdit);
+      refresh();
+    },
+    refresh: refresh
+  };
+})();
+</script>
+
+<!-- Demo minutes seed -->
+<script>
+if(!window.FIREBASE_READY){
+  (function(){
+    var KEY="ur_demo_minutes";
+    var seed=[
+      { id:"2026-04", title:"April Club Meeting", content:"Called to order at 4:35 PM by President Kim Young. 18 members present.\n\nOLD BUSINESS\n- Spring cruise route finalized: Giant Eagle, Frankstown Rd, May 17.\n- Charity cruise donations tallied from March event: $840 raised for Greater Pittsburgh Community Food Bank.\n\nNEW BUSINESS\n- Summer banquet date set: August 9 at Penn Hills Recreation Center.\n- Lady Rays announced Father's Day Show & Shine details.\n- Dues reminder: any outstanding 2026 dues must be paid before May cruise.\n\nTREASURER'S REPORT\nBalance: $4,220. All bills current.\n\nMeeting adjourned at 6:02 PM.", pdfUrl:"", updated:"2026-04-13" },
+      { id:"2026-03", title:"March Club Meeting", content:"Called to order at 4:40 PM. 15 members present.\n\nOLD BUSINESS\n- UCCC competition registration confirmed. Team of 6 registered.\n- Reviewed February banquet recap — great success, strong attendance.\n\nNEW BUSINESS\n- New member welcome: introduced 2 new members.\n- Car show entry forms distributed for the Pittsburgh Auto Show.\n- Discussed club polo shirt design — vote next month.\n\nTREASURER'S REPORT\nBalance: $3,975.\n\nAdjourned at 5:55 PM.", pdfUrl:"", updated:"2026-03-09" }
+    ];
+    function load(){ try{ var v=JSON.parse(localStorage.getItem(KEY)); return Array.isArray(v)?v:null; }catch(e){ return null; } }
+    function save(arr){ try{ localStorage.setItem(KEY, JSON.stringify(arr)); }catch(e){} }
+    if(!load()) save(seed);
+    var minutesProvider={
+      list: async function(){ return load()||[]; },
+      add: async function(rec){ var a=load()||[]; a=a.filter(function(x){return x.id!==rec.id;}); a.push(rec); save(a); },
+      update: async function(id, rec){ var a=load()||[]; a=a.map(function(x){return x.id===id?rec:x;}); save(a); },
+      remove: async function(id){ save((load()||[]).filter(function(x){return x.id!==id;})); }
+    };
+    UR_MinutesUI.init(minutesProvider);
+  })();
+}
+</script>
+
+<!-- Auth gate + admin (enforced once Firebase is connected; demo mode stays open) -->
+<script type="module">
+  if(window.FIREBASE_READY){
+    const ALLOWLIST = "allowlist";
+    const SIGNIN = "United Rays - Sign In.html";
+    const dash = document.getElementById("mp-dash");
+
+    const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js");
+    const { getAuth, onAuthStateChanged, signOut } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+    const { getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, collection, getDocs }
+      = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+
+    const app = initializeApp(window.FIREBASE_CONFIG);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    function initials(name){
+      if(!name) return "UR";
+      const p = name.trim().split(/\s+/);
+      return ((p[0]?.[0]||"") + (p[1]?.[0]||"")).toUpperCase() || "UR";
+    }
+
+    const firestoreProvider = {
+      list: async () => {
+        const snap = await getDocs(collection(db, ALLOWLIST));
+        return snap.docs.map(d => ({ email: d.id, ...d.data() }));
+      },
+      add: async (rec) => {
+        const key = rec.email.toLowerCase().trim();
+        await setDoc(doc(db, ALLOWLIST, key), {
+          name: rec.name || "", email: key, role: rec.role || "member",
+          active: rec.active !== false, joined: rec.joined || new Date().toISOString().slice(0,10)
+        });
+      },
+      update: async (email, patch) => { await updateDoc(doc(db, ALLOWLIST, email.toLowerCase().trim()), patch); },
+      remove: async (email) => { await deleteDoc(doc(db, ALLOWLIST, email.toLowerCase().trim())); }
+    };
+
+    const APPLICATIONS = "applications";
+    const appProvider = {
+      list: async () => {
+        const snap = await getDocs(collection(db, APPLICATIONS));
+        return snap.docs.map(d => ({ email: d.id, ...d.data() }));
+      },
+      remove: async (email) => { await deleteDoc(doc(db, APPLICATIONS, email.toLowerCase().trim())); }
+    };
+
+    onAuthStateChanged(auth, async (user) => {
+      if(!user){ window.location.replace(SIGNIN); return; }
+      const email = (user.email || "").toLowerCase().trim();
+      const SUPER_ADMINS = ['kyoungurcc@gmail.com', 'carltonperryrocks@gmail.com'];
+      const isSuper = SUPER_ADMINS.includes(email);
+      let data = null;
+      if(isSuper){
+        data = { name: user.displayName || "Super Admin", role: "admin", active: true };
+      } else {
+        try{ const snap = await getDoc(doc(db, ALLOWLIST, email)); if(snap.exists()) data = snap.data(); }
+        catch(e){ /* rules may block; treat as no access */ }
+      }
+      if(!data || data.active !== true){ await signOut(auth); window.location.replace(SIGNIN); return; }
+      // Approved — personalize + reveal
+      const name = data.name || user.displayName || user.email || "Member";
+      document.getElementById("mp-username").textContent = name;
+      document.getElementById("mp-userrole").textContent = (data.role === "admin" ? "Officer" : "Member") + " · Good Standing";
+      document.getElementById("mp-avatar").textContent = initials(name);
+      window.UR_CURRENT_USER = { name: name, email: user.email || "" };
+      dash.classList.add("show");
+      // Admins get Member Management
+      if(data.role === "admin"){
+        UR_AdminUI.reveal();
+        UR_AdminUI.init(firestoreProvider, appProvider);
+        const minutesProvider = {
+          list: async () => { const snap = await getDocs(collection(db,"minutes")); return snap.docs.map(d=>({id:d.id,...d.data()})); },
+          add: async (rec) => { await setDoc(doc(db,"minutes",rec.id), rec); },
+          update: async (id, rec) => { await setDoc(doc(db,"minutes",id), rec); },
+          remove: async (id) => { await deleteDoc(doc(db,"minutes",id)); }
+        };
+        UR_MinutesUI.init(minutesProvider);
+        // Admin questions provider
+        const qColA = "questions";
+        const adminQProvider = {
+          list: async () => { const snap = await getDocs(collection(db,qColA)); return snap.docs.map(d=>({id:d.id,...d.data()})); },
+          add: async (rec) => { await setDoc(doc(db,qColA,rec.id),rec); },
+          update: async (id,patch) => { await updateDoc(doc(db,qColA,id),patch); },
+          remove: async (id) => { await deleteDoc(doc(db,qColA,id)); }
+        };
+        UR_QuestionsUI.init(adminQProvider, user.email||"");
+      } else {
+        // members see minutes read-only from Firestore
+        const minutesProvider = {
+          list: async () => { const snap = await getDocs(collection(db,"minutes")); return snap.docs.map(d=>({id:d.id,...d.data()})); },
+          add: async()=>{}, update: async()=>{}, remove: async()=>{}
+        };
+        UR_MinutesUI.init(minutesProvider);
+        // Member questions provider
+        const qColM = "questions";
+        const memberQProvider = {
+          list: async () => { const snap = await getDocs(collection(db,qColM)); return snap.docs.map(d=>({id:d.id,...d.data()})); },
+          add: async (rec) => { await setDoc(doc(db,qColM,rec.id),rec); },
+          update: async()=>{}, remove: async()=>{}
+        };
+        UR_QuestionsUI.init(memberQProvider, user.email||"");
+      }
+    });
+
+    const so = document.getElementById("mp-signout");
+    if(so) so.addEventListener("click", async () => { await signOut(auth); window.location.replace(SIGNIN); });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if the user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper function to check if the user is in the allowlist and has active: true, or is a super-admin
+    function isMember() {
+      return isAuthenticated() && (
+        request.auth.token.email.lower() == 'kyoungurcc@gmail.com' ||
+        request.auth.token.email.lower() == 'carltonperryrocks@gmail.com' ||
+        (exists(/databases/$(database)/documents/allowlist/$(request.auth.token.email.lower())) &&
+         get(/databases/$(database)/documents/allowlist/$(request.auth.token.email.lower())).data.active == true)
+      );
+    }
+    
+    // Helper function to check if the user is an admin (officer) or a super-admin
+    function isAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.email.lower() == 'kyoungurcc@gmail.com' ||
+        request.auth.token.email.lower() == 'carltonperryrocks@gmail.com' ||
+        (exists(/databases/$(database)/documents/allowlist/$(request.auth.token.email.lower())) &&
+         get(/databases/$(database)/documents/allowlist/$(request.auth.token.email.lower())).data.role == 'admin')
+      );
+    }
+    
+    // Allowlist collection
+    match /allowlist/{email} {
+      // Users can read their own allowlist document if authenticated
+      allow read: if isAuthenticated() && (request.auth.token.email.lower() == email.lower() || isAdmin());
+      // Only admins can write to allowlist
+      allow write: if isAdmin();
+    }
+    
+    // Minutes collection
+    match /minutes/{month} {
+      // Members can read meeting minutes
+      allow read: if isMember();
+      // Only admins can write meeting minutes
+      allow write: if isAdmin();
+    }
+    
+    // Questions collection
+    match /questions/{questionId} {
+      // Members can read and create questions
+      allow read, create: if isMember();
+      // Only admins can update or delete questions
+      allow update, delete: if isAdmin();
+    }
+    
+    // Applications collection
+    match /applications/{applicationId} {
+      // Anyone can submit (create) an application
+      allow create: if true;
+      // Only admins can read, update, or delete applications
+      allow read, update, delete: if isAdmin();
+    }
+  }
+}

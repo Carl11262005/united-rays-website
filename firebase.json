@@ -1,0 +1,25 @@
+{
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "auth": {
+    "providers": {
+      "googleSignIn": {
+        "oAuthBrandDisplayName": "United Rays Corvette Club",
+        "supportEmail": "kyoungurcc@gmail.com"
+      }
+    }
+  },
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "firestore.rules",
+      "firebase-debug.log",
+      "CLAUDE.md",
+      "scratch/**"
+    ]
+  }
+}

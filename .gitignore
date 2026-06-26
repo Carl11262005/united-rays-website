@@ -1,0 +1,17 @@
+# Firebase
+.firebase/
+firebase-debug.log
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules/
+
+# Scratch/temp files
+scratch/
+
+# Gemini
+.gemini/
+CLAUDE.md
