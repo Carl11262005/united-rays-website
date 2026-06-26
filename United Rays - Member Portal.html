@@ -261,19 +261,19 @@
     /* --- Dashboard layout: single column --- */
     .mp-dash.show{grid-template-columns:1fr}
 
-    /* --- Sidebar → horizontal nav bar --- */
-    .mp-side{flex-direction:column;border-right:none;border-bottom:1px solid var(--line);padding:16px}
-    .mp-user{padding:0 0 14px;margin:0 0 12px;border-bottom:1px solid var(--line);gap:10px}
-    .mp-avatar{width:38px;height:38px;font-size:1.1rem}
-    .mp-user b{font-size:.92rem}
-    .mp-user span{font-size:.64rem;letter-spacing:.1em}
-    .mp-nav{flex-direction:row;flex-wrap:wrap;padding:0;gap:6px}
-    .mp-nav button{padding:8px 12px;font-size:.82rem;gap:8px;border-radius:6px}
-    .mp-nav button svg{width:16px;height:16px}
-    .mp-nav button span{display:none}
-    .mp-nav-label{border-top:none;padding:0;margin:0 0 0 4px;display:flex;align-items:center;font-size:.6rem}
-    .mp-signout{margin:10px 0 0;width:auto;padding:8px 12px;font-size:.85rem;gap:8px}
-    .mp-signout svg{width:16px;height:16px}
+    /* --- Sidebar: keep desktop structure, just compact --- */
+    .mp-side{flex-direction:column;border-right:none;border-bottom:1px solid var(--line);padding:14px 16px;gap:0}
+    .mp-user{padding:0 0 12px;margin:0 0 10px;border-bottom:1px solid var(--line);gap:10px}
+    .mp-avatar{width:36px;height:36px;font-size:1.05rem}
+    .mp-user b{font-size:.9rem}
+    .mp-user span{font-size:.62rem;letter-spacing:.1em}
+    .mp-nav{flex-direction:column;padding:0;gap:2px}
+    .mp-nav button{padding:10px 12px;font-size:.9rem;gap:10px;border-radius:6px}
+    .mp-nav button svg{width:17px;height:17px}
+    .mp-nav button span{display:inline}
+    .mp-nav-label{border-top:1px solid var(--line);padding:12px 0 6px;margin:8px 0 0;font-size:.6rem}
+    .mp-signout{margin:8px 0 0;width:100%;padding:10px 12px;font-size:.88rem;gap:10px}
+    .mp-signout svg{width:17px;height:17px}
 
     /* --- Main content --- */
     .mp-main{padding:24px 16px}
