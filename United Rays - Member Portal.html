@@ -125,9 +125,10 @@
   .mp-dues-card .due-note{color:var(--muted);font-size:.92rem;margin-top:8px}
 
   .mp-form-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:28px}
-  .mp-form-card textarea{width:100%;background:#0b0907;border:1px solid var(--line-strong);border-radius:7px;color:var(--ink);font-family:"Barlow";font-size:1rem;padding:13px 15px;min-height:110px;resize:vertical;transition:.2s}
+  .mp-form-card .mp-field input{width:100%}
+  .mp-form-card textarea{width:100%;max-width:100%;background:#0b0907;border:1px solid var(--line-strong);border-radius:7px;color:var(--ink);font-family:"Barlow";font-size:1rem;padding:13px 15px;min-height:110px;resize:vertical;transition:.2s;box-sizing:border-box}
   .mp-form-card textarea:focus,.mp-form-card select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(224,179,77,.14)}
-  .mp-form-card select{width:100%;background:#0b0907;border:1px solid var(--line-strong);border-radius:7px;color:var(--ink);font-family:"Barlow";font-size:1rem;padding:13px 15px}
+  .mp-form-card select{width:100%;max-width:100%;background:#0b0907;border:1px solid var(--line-strong);border-radius:7px;color:var(--ink);font-family:"Barlow";font-size:1rem;padding:13px 15px;box-sizing:border-box}
   .mp-toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(20px);z-index:120;background:#11150f;border:1px solid #2f5b39;color:#7fd897;font-family:"Barlow";font-weight:600;padding:14px 24px;border-radius:10px;box-shadow:0 20px 50px -20px rgba(0,0,0,.9);opacity:0;pointer-events:none;transition:.3s}
   .mp-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -662,9 +663,9 @@
       <form class="mp-form-card" id="mp-q-form">
         <div class="mp-field"><label for="q-f-date">Meeting Date</label><input type="date" id="q-f-date" /></div>
         <div class="mp-field" style="margin-top:14px"><label for="q-f-text">Your Question</label>
-          <textarea id="q-f-text" style="width:100%;background:#0b0907;border:1px solid var(--line-strong);border-radius:7px;color:var(--ink);font-family:'Barlow';font-size:1rem;padding:13px 15px;min-height:120px;resize:vertical;transition:.2s" placeholder="e.g. Can we add a charity cruise to the summer calendar?"></textarea>
+          <textarea id="q-f-text" placeholder="e.g. Can we add a charity cruise to the summer calendar?"></textarea>
         </div>
-        <button type="submit" class="btn btn-red" style="justify-content:center;margin-top:4px">Submit Question</button>
+        <button type="submit" class="btn btn-red" style="justify-content:center;margin-top:4px;width:100%">Submit Question</button>
       </form>
       <div style="margin-top:28px">
         <span class="overline">Your Submitted Questions</span>
