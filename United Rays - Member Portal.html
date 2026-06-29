@@ -142,6 +142,7 @@
   .adm-addcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px;margin-bottom:26px}
   .adm-addcard h4{font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:.82rem;color:var(--gold);margin-bottom:14px}
   .adm-addrow{display:grid;grid-template-columns:1fr 1.3fr 140px auto;gap:10px;align-items:end}
+  .adm-addmember-row{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end}
   .adm-addrow .f label{display:block;font-family:"Barlow Condensed";font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;color:var(--muted);margin-bottom:6px}
   .adm-addrow input,.adm-addrow select{width:100%;background:#0b0907;border:1px solid var(--line-strong);border-radius:6px;color:var(--ink);font-family:"Barlow";font-size:.96rem;padding:11px 40px 11px 13px;transition:.2s;appearance:none;-webkit-appearance:none;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23857c70' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
@@ -330,16 +331,17 @@
     .mp-form-card textarea{font-size:.94rem;padding:12px;min-height:100px}
     .mp-form-card select{font-size:.94rem;padding:12px}
 
-    /* --- Admin --- */
+    /* --- Admin UI --- */
+    .adm-tabs{overflow-x:auto;padding-bottom:2px}
+    .adm-tabs button{padding:10px 18px;font-size:.9rem}
     .adm-stats{grid-template-columns:1fr;gap:10px}
-    .adm-stat{padding:16px}
-    .adm-stat .v{font-size:1.8rem}
-    .adm-addcard{padding:18px 16px}
-    .adm-addrow{grid-template-columns:1fr;gap:10px}
-    .adm-addrow input,.adm-addrow select{font-size:.9rem;padding:10px 36px 10px 12px}
-    .adm-addrow .btn{width:100%;justify-content:center}
-    .adm-search{min-width:0;width:100%;font-size:.9rem}
-    .adm-row{grid-template-columns:1fr auto;gap:10px;padding:14px 16px}
+    .adm-toolbar{flex-direction:column;align-items:stretch;gap:12px;padding:12px}
+    .adm-search{max-width:100%}
+    .adm-row{flex-direction:column;align-items:flex-start;gap:12px;padding:14px 16px}
+    .adm-addrow, .adm-addmember-row{grid-template-columns:1fr;gap:10px}
+    .adm-addrow input,.adm-addrow select, .adm-addmember-row input{font-size:.9rem;padding:10px 36px 10px 12px}
+    .adm-addrow .btn, .adm-addmember-row .btn{width:100%;justify-content:center}
+    .adm-actbtn{padding:7px 12px;font-size:.75rem}
     .adm-who .nm b{font-size:.92rem}
     .adm-who .nm span{font-size:.78rem}
     .adm-av{width:34px;height:34px;font-size:1rem}
@@ -721,7 +723,7 @@
         <div class="adm-addcard" style="margin-top:20px;margin-bottom:20px">
           <h4 style="margin-bottom:12px;font-family:'Barlow Condensed';text-transform:uppercase;color:var(--gold);font-size:1.05rem;letter-spacing:0.08em;">Add Member Manually</h4>
           <form id="adm-add-member-form">
-            <div class="adm-addrow" style="grid-template-columns:1fr 1fr auto;margin-bottom:0">
+            <div class="adm-addmember-row" style="margin-bottom:0">
               <input type="text" id="adm-add-name" class="adm-input" placeholder="Member Name" required />
               <input type="email" id="adm-add-email" class="adm-input" placeholder="Email Address" required />
               <button type="submit" class="btn btn-red" style="padding:10px 16px;font-size:.9rem;width:100%;height:100%">Add Member</button>
