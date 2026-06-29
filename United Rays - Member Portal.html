@@ -991,11 +991,11 @@ window.UR_AdminUI = (function(){
   async function refreshApps(){ apps = appP ? await appP.list() : []; renderApps(); }
   async function doApprove(a){
     await memberP.add({ name:a.name, email:a.email, phone:a.phone||"", role:"member", active:true, joined:new Date().toISOString().slice(0,10) });
-    if(appP) await appP.remove(a.email);
+    if(appP) await appP.remove(a.id || a.email);
     await refreshMembers(); await refreshApps();
     toast("Approved "+(a.name||a.email)+" — added to members");
   }
-  async function doDecline(a){ if(appP) await appP.remove(a.email); await refreshApps(); toast("Declined "+(a.name||a.email)); }
+  async function doDecline(a){ if(appP) await appP.remove(a.id || a.email); await refreshApps(); toast("Declined "+(a.name||a.email)); }
 
   /* ---------- Member Directory (visible to all members) ---------- */
   function renderDirectory(){
@@ -1200,7 +1200,7 @@ if(!window.FIREBASE_READY){
     };
     var appProvider = {
       list: async function(){ return load(AKEY) || []; },
-      remove: async function(email){ save(AKEY, (load(AKEY)||[]).filter(function(a){ return a.email!==email; })); }
+      remove: async function(id_or_email){ save(AKEY, (load(AKEY)||[]).filter(function(a){ return a.id !== id_or_email && a.email !== id_or_email; })); }
     };
     UR_AdminUI.reveal();
     UR_AdminUI.init(memberProvider, appProvider);
@@ -1513,9 +1513,9 @@ if(!window.FIREBASE_READY){
     const appProvider = {
       list: async () => {
         const snap = await getDocs(collection(db, APPLICATIONS));
-        return snap.docs.map(d => ({ email: d.id, ...d.data() }));
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }));
       },
-      remove: async (email) => { await deleteDoc(doc(db, APPLICATIONS, email.toLowerCase().trim())); }
+      remove: async (id) => { await deleteDoc(doc(db, APPLICATIONS, id)); }
     };
 
     onAuthStateChanged(auth, async (user) => {
