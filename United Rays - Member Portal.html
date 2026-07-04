@@ -143,9 +143,10 @@
   .adm-addcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px;margin-bottom:26px}
   .adm-addcard h4{font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:.82rem;color:var(--gold);margin-bottom:14px}
   .adm-addrow{display:grid;grid-template-columns:1fr 1fr auto;gap:14px;align-items:end}
-  .adm-addmember-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:14px;align-items:end}
+  .adm-addmember-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:14px;align-items:end}
   .adm-addrow .f label, .adm-addmember-row .f label{display:block;font-family:"Barlow Condensed";font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;color:var(--muted);margin-bottom:6px}
-  .adm-addrow input,.adm-addrow select, .adm-addmember-row input{width:100%;background:#0b0907;border:1px solid var(--line-strong);border-radius:6px;color:var(--ink);font-family:"Barlow";font-size:.96rem;padding:11px 40px 11px 13px;transition:.2s;appearance:none;-webkit-appearance:none;
+  .adm-addrow input, .adm-addmember-row input{width:100%;background:#0b0907;border:1px solid var(--line-strong);border-radius:6px;color:var(--ink);font-family:"Barlow";font-size:.96rem;padding:11px 13px;transition:.2s;appearance:none;-webkit-appearance:none}
+  .adm-addrow select{width:100%;background:#0b0907;border:1px solid var(--line-strong);border-radius:6px;color:var(--ink);font-family:"Barlow";font-size:.96rem;padding:11px 40px 11px 13px;transition:.2s;appearance:none;-webkit-appearance:none;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23857c70' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
     background-repeat:no-repeat;background-position:right 12px center}
   .adm-addrow input:focus,.adm-addrow select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(224,179,77,.14)}
@@ -159,7 +160,8 @@
   .adm-row:hover{border-color:var(--line-strong)}
   .adm-row.suspended{opacity:.6}
   .adm-who{display:flex;align-items:center;gap:13px;min-width:0}
-  .adm-av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:"Bebas Neue";font-size:1.2rem;color:#1a1208;background:linear-gradient(135deg,var(--gold),var(--gold-soft))}
+  .adm-av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:"Bebas Neue";font-size:1.2rem;color:#1a1208;background:linear-gradient(135deg,var(--gold),var(--gold-soft));overflow:hidden}
+  .adm-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
   .adm-who .nm{min-width:0}
   .adm-who .nm b{display:block;color:var(--ink);font-size:1rem;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .adm-who .nm span{display:block;color:var(--muted);font-size:.84rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -190,8 +192,8 @@
   .dir-info{min-width:0;flex:1}
   .dir-name{display:flex;align-items:center;gap:10px;margin-bottom:5px;flex-wrap:wrap}
   .dir-name b{color:var(--ink);font-size:1rem}
-  .dir-contact{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-  .dir-link{color:var(--muted);font-size:.88rem;text-decoration:none;transition:.15s}
+  .dir-contact{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .dir-link{color:var(--muted);font-size:.88rem;text-decoration:none;transition:.15s;display:inline-flex;align-items:center;gap:5px}
   .dir-link:hover{color:var(--gold)}
   .dir-sep{color:var(--muted-2);font-size:.8rem}
 
@@ -341,7 +343,8 @@
     .adm-row{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:14px 16px}
     .adm-acts{width:100%;display:flex;gap:8px}
     .adm-addrow, .adm-addmember-row{grid-template-columns:1fr;gap:16px}
-    .adm-addrow input,.adm-addrow select, .adm-addmember-row input{font-size:.9rem;padding:12px 36px 12px 14px}
+    .adm-addrow input, .adm-addmember-row input{font-size:.9rem;padding:12px 14px}
+    .adm-addrow select{font-size:.9rem;padding:12px 36px 12px 14px}
     .adm-addrow .btn, .adm-addmember-row .btn{width:100%;justify-content:center;padding:14px}
     .adm-actbtn{padding:7px 12px;font-size:.75rem}
     .adm-who .nm b{font-size:.92rem}
@@ -470,6 +473,7 @@
       <button data-panel="bylaws"><svg viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h13"/><path d="M18 22H6a2 2 0 0 1 0-4h12v-4"/><path d="M18 3v11"/></svg><span>Club By-Laws</span></button>
       <button data-panel="questions"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/><path d="M9.5 9a2.5 2.5 0 0 1 4 1.5c0 1.5-2 2-2 3"/><path d="M11.5 15h.01"/></svg><span>Ask a Question</span></button>
       <button data-panel="dues"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg><span>Pay Dues</span></button>
+      <button data-panel="calendar"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Upcoming Events</span></button>
       <button data-panel="events"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M9 14l2 2 4-4"/></svg><span>Event Payments</span></button>
       <div id="mp-admin-group" style="display:none">
         <div class="mp-nav-label">Administration</div>
@@ -688,6 +692,48 @@
       </div>
     </section>
 
+    <!-- UPCOMING EVENTS (CALENDAR) -->
+    <section class="mp-panel" data-panel="calendar">
+      <div class="mp-ph" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;">
+        <div>
+          <span class="overline">Club Calendar</span>
+          <h2>Upcoming Events</h2>
+          <p>Check out our club cruises, car shows, and meetings.</p>
+        </div>
+        <button id="cal-add-btn" class="btn btn-red" style="display:none; padding:10px 16px; font-size:0.9rem;">+ Add Event</button>
+      </div>
+      
+      <!-- Form to add/edit event (visible to admins only, toggleable) -->
+      <div id="cal-form-card" class="adm-addcard" style="display:none; margin-bottom:24px;">
+        <h4 id="cal-form-title">Add New Event</h4>
+        <form id="cal-event-form">
+          <input type="hidden" id="cal-event-id" />
+          <div class="adm-addmember-row" style="grid-template-columns: 2fr 1fr 1fr auto; margin-bottom:0;">
+            <div class="f">
+              <label>Event Title</label>
+              <input type="text" id="cal-title" class="adm-input" placeholder="e.g. Annual Corvettes Cruise" required />
+            </div>
+            <div class="f">
+              <label>Date</label>
+              <input type="date" id="cal-date" class="adm-input" required />
+            </div>
+            <div class="f">
+              <label>Location / Details</label>
+              <input type="text" id="cal-details" class="adm-input" placeholder="e.g. Heinz Field, Pittsburgh" />
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button type="submit" class="btn btn-red" style="padding:10px 16px; font-size:.9rem;">Save</button>
+              <button type="button" id="cal-cancel-btn" class="btn btn-ghost" style="padding:10px 16px; font-size:.9rem;">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div id="cal-list" style="display:flex; flex-direction:column; gap:16px; margin-top:20px;">
+        <!-- Events render here -->
+      </div>
+    </section>
+
     <!-- EVENTS -->
     <section class="mp-panel" data-panel="events">
       <div class="mp-ph"><span class="overline">Registration</span><h2>Pay for Events</h2><p>Send your event payment via Zelle. Include your name and the event name in the memo.</p></div>
@@ -735,6 +781,10 @@
               <div class="f">
                 <label>Phone Number</label>
                 <input type="tel" id="adm-add-phone" class="adm-input" placeholder="Optional" />
+              </div>
+              <div class="f">
+                <label>Year Joined</label>
+                <input type="number" id="adm-add-joined" class="adm-input" placeholder="e.g. 2020" min="1977" max="2035" />
               </div>
               <button type="submit" class="btn btn-red" style="padding:10px 16px;font-size:.9rem;width:100%;height:100%">Add Member</button>
             </div>
@@ -884,10 +934,11 @@ if(window.FIREBASE_READY){
 </script>
 <script>
 window.UR_AdminUI = (function(){
-  var memberP = null, appP = null;
+  var memberP = null, appP = null, photoP = null;
   var members = [], apps = [];
   var listEl, searchEl, appListEl, badgeEl;
   var toastEl, toastTimer;
+  var fileInput = null, fileTarget = null;
   function toast(msg){
     toastEl = toastEl || document.getElementById("mp-toast");
     toastEl.textContent = "✓ " + msg; toastEl.classList.add("show");
@@ -898,15 +949,43 @@ window.UR_AdminUI = (function(){
     var p = name.trim().split(/\s+/);
     return ((p[0]?.[0]||"") + (p[1]?.[0]||"")).toUpperCase() || "UR";
   }
+  function avatar(m, size){
+    var av = document.createElement("div");
+    av.className = "adm-av";
+    if(size) av.style.cssText="width:"+size+"px;height:"+size+"px;font-size:"+(size*0.028>1?size*0.028:1).toFixed(1)+"rem;flex:none";
+    if(m.photoURL){
+      var img = document.createElement("img");
+      img.src = m.photoURL; img.alt = m.name||"Member";
+      av.appendChild(img);
+    } else {
+      av.textContent = initials(m.name||m.email);
+    }
+    return av;
+  }
   function fmtDate(d){
     if(!d) return "—";
     var dt = new Date(d);
     if(isNaN(dt)) return String(d);
     return dt.toLocaleDateString("en-US", { month:"short", day:"numeric", year:"numeric" });
   }
+  function formatPhone(str) {
+    if(!str) return "";
+    var num = str.replace(/\D/g, "");
+    if(num.length === 10) return num.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+    if(num.length === 11 && num.startsWith("1")) return num.slice(1).replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+    return str.trim();
+  }
   function fmtDuration(dateStr){
     if(!dateStr) return "";
-    var d = new Date(dateStr); if(isNaN(d)) return "";
+    var cleaned = String(dateStr).trim();
+    var d;
+    if(/^\d{4}$/.test(cleaned)){
+      d = new Date(cleaned + "-01-01T12:00:00");
+    } else {
+      d = new Date(cleaned + "T12:00:00");
+      if(isNaN(d)) d = new Date(cleaned);
+    }
+    if(isNaN(d)) return "";
     var now = new Date();
     var m = (now.getFullYear()-d.getFullYear())*12 + (now.getMonth()-d.getMonth());
     m = Math.max(0,m);
@@ -933,10 +1012,15 @@ window.UR_AdminUI = (function(){
     rows.forEach(function(m){
       var row = el("div","adm-row"+(m.active===false?" suspended":""));
       var who = el("div","adm-who");
-      who.appendChild(el("div","adm-av", initials(m.name||m.email)));
+      who.appendChild(avatar(m));
       var nm = el("div","nm");
       nm.appendChild(el("b", null, m.name||"(no name)"));
       nm.appendChild(el("span", null, m.email));
+      if(m.phone) {
+        var ph = el("span", null, formatPhone(m.phone));
+        ph.style.opacity = "0.7";
+        nm.appendChild(ph);
+      }
       who.appendChild(nm);
       row.appendChild(who);
       var roleWrap = el("div"); roleWrap.appendChild(el("span","pill "+(m.role==="admin"?"officer":"member"), m.role==="admin"?"Officer":"Member")); row.appendChild(roleWrap);
@@ -947,6 +1031,49 @@ window.UR_AdminUI = (function(){
         var adminBtn = el("button","adm-actbtn","Make Admin");
         adminBtn.onclick = function(){ if(confirm("Make "+(m.name||m.email)+" an admin? They'll be able to manage members and applications.")) doUpdate(m.email, { role:"admin" }, (m.name||m.email)+" is now an admin"); };
         acts.appendChild(adminBtn);
+      }
+      var editBtn = el("button","adm-actbtn","Edit Phone");
+      editBtn.onclick = function(){
+        var newPhone = prompt("Enter phone number for "+(m.name||m.email)+":", m.phone||"");
+        if(newPhone !== null) doUpdate(m.email, { phone: formatPhone(newPhone) }, "Phone number updated");
+      };
+      acts.appendChild(editBtn);
+      var joinedBtn = el("button","adm-actbtn","Edit Joined");
+      joinedBtn.onclick = function(){
+        var currentJoined = m.joined || "";
+        var yearOnly = /^\d{4}$/.test(currentJoined) ? currentJoined : (currentJoined ? new Date(currentJoined).getFullYear().toString() : "");
+        var newJoined = prompt("Enter joined year (e.g. 2020) for "+(m.name||m.email)+":", yearOnly);
+        if(newJoined !== null){
+          var trimmed = newJoined.trim();
+          if(trimmed && !/^\d{4}$/.test(trimmed)){
+            alert("Invalid year. Please enter a 4-digit year (e.g., 2020).");
+            return;
+          }
+          doUpdate(m.email, { joined: trimmed || new Date().getFullYear().toString() }, "Joined year updated");
+        }
+      };
+      acts.appendChild(joinedBtn);
+      if(photoP){
+        var photoBtn = el("button","adm-actbtn view","Upload Photo");
+        photoBtn.onclick = function(){ fileTarget = m; fileInput.click(); };
+        acts.appendChild(photoBtn);
+        if(m.photoURL){
+          var rmPhotoBtn = el("button","adm-actbtn danger","Remove Photo");
+          rmPhotoBtn.onclick = async function(){
+            if(confirm("Remove photo for "+(m.name||m.email)+"?")){
+              try {
+                await photoP.remove(m.email);
+                await memberP.update(m.email, { photoURL: null });
+                await refreshMembers();
+                toast("Removed photo");
+              } catch(e) {
+                console.error(e);
+                alert("Error removing photo.");
+              }
+            }
+          };
+          acts.appendChild(rmPhotoBtn);
+        }
       }
       var rmBtn = el("button","adm-actbtn danger","Remove");
       rmBtn.onclick = function(){ if(confirm("Remove "+(m.name||m.email)+"? They will lose portal access.")) doRemove(m.email, (m.name||m.email)); };
@@ -994,7 +1121,7 @@ window.UR_AdminUI = (function(){
   }
   async function refreshApps(){ apps = appP ? await appP.list() : []; renderApps(); }
   async function doApprove(a){
-    await memberP.add({ name:a.name, email:a.email, phone:a.phone||"", role:"member", active:true, joined:new Date().toISOString().slice(0,10) });
+    await memberP.add({ name:a.name, email:a.email, phone:formatPhone(a.phone||""), role:"member", active:true, joined:new Date().toISOString().slice(0,10) });
     if(appP) await appP.remove(a.id || a.email);
     await refreshMembers(); await refreshApps();
     toast("Approved "+(a.name||a.email)+" — added to members");
@@ -1010,12 +1137,18 @@ window.UR_AdminUI = (function(){
     if(!active.length){ dirEl.appendChild(el("div","adm-empty","No members yet.")); return; }
     active.forEach(function(m){
       var card = el("div","dir-card");
-      var av = el("div","adm-av",initials(m.name||m.email)); av.style.cssText="width:46px;height:46px;font-size:1.3rem;flex:none"; card.appendChild(av);
+      var av = avatar(m, 46); card.appendChild(av);
       var info = el("div","dir-info");
       var nameLine = el("div","dir-name"); nameLine.appendChild(el("b",null,m.name||"(no name)")); nameLine.appendChild(el("span","pill "+(m.role==="admin"?"officer":"member"), m.role==="admin"?"Officer":"Member")); if(m.joined){ nameLine.appendChild(el("span","adm-dur",fmtDuration(m.joined))); } info.appendChild(nameLine);
       var contactLine = el("div","dir-contact");
-      var emailA = document.createElement("a"); emailA.href="mailto:"+m.email; emailA.textContent=m.email; emailA.className="dir-link"; contactLine.appendChild(emailA);
-      if(m.phone && m.phone.trim()){ contactLine.appendChild(el("span","dir-sep","·")); var phoneA = document.createElement("a"); phoneA.href="tel:"+m.phone.replace(/\D/g,""); phoneA.textContent=m.phone; phoneA.className="dir-link"; contactLine.appendChild(phoneA); }
+      var emailA = document.createElement("a"); emailA.href="mailto:"+m.email; emailA.className="dir-link"; 
+      emailA.innerHTML='<svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>' + m.email;
+      contactLine.appendChild(emailA);
+      if(m.phone && m.phone.trim()){ 
+        var phoneA = document.createElement("a"); phoneA.href="tel:"+m.phone.replace(/\D/g,""); phoneA.className="dir-link"; 
+        phoneA.innerHTML='<svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>' + formatPhone(m.phone);
+        contactLine.appendChild(phoneA); 
+      }
       info.appendChild(contactLine);
       card.appendChild(info);
       dirEl.appendChild(card);
@@ -1098,10 +1231,13 @@ window.UR_AdminUI = (function(){
   }
 
   return {
+    el: el,
     reveal: function(){ var g=document.getElementById("mp-admin-group"); if(g) g.style.display=""; },
     refreshDirectory: function(){ renderDirectory(); },
-    init: function(memberProvider, appProvider){
-      memberP = memberProvider; appP = appProvider || null;
+    liveUpdate: function(freshMembers){ members = freshMembers; renderMembers(); renderDirectory(); },
+    liveUpdateDirectory: function(freshMembers){ members = freshMembers; renderDirectory(); },
+    init: function(memberProvider, appProvider, photoProvider){
+      memberP = memberProvider; appP = appProvider || null; photoP = photoProvider || null;
       listEl = document.getElementById("adm-list");
       searchEl = document.getElementById("adm-search");
       appListEl = document.getElementById("adm-applist");
@@ -1109,6 +1245,28 @@ window.UR_AdminUI = (function(){
       if(!listEl) return;
       searchEl.addEventListener("input", renderMembers);
       setupTabs();
+
+      /* Hidden file input for photo uploads */
+      fileInput = document.createElement("input");
+      fileInput.type = "file"; fileInput.accept = "image/*"; fileInput.style.display = "none";
+      document.body.appendChild(fileInput);
+      fileInput.addEventListener("change", async function(){
+        if(!fileInput.files.length || !fileTarget || !photoP) return;
+        var file = fileInput.files[0];
+        if(file.size > 15 * 1024 * 1024){ alert("Image must be under 15 MB."); fileInput.value=""; return; }
+        toast("Uploading photo…");
+        try {
+          var url = await photoP.upload(fileTarget.email, file);
+          await memberP.update(fileTarget.email, { photoURL: url });
+          await refreshMembers();
+          toast("Photo updated for " + (fileTarget.name || fileTarget.email));
+        } catch(err) {
+          console.error(err);
+          alert("Error uploading photo. Please try again.");
+        }
+        fileInput.value = "";
+        fileTarget = null;
+      });
       
       var addForm = document.getElementById("adm-add-member-form");
       if(addForm) {
@@ -1117,11 +1275,12 @@ window.UR_AdminUI = (function(){
           var name = document.getElementById("adm-add-name").value.trim();
           var email = document.getElementById("adm-add-email").value.trim();
           var phone = document.getElementById("adm-add-phone") ? document.getElementById("adm-add-phone").value.trim() : "";
+          var joined = (document.getElementById("adm-add-joined") && document.getElementById("adm-add-joined").value) || new Date().getFullYear().toString();
           if(!email) return;
           var btn = addForm.querySelector("button[type='submit']");
           btn.disabled = true;
           try {
-            await memberP.add({ email: email, name: name, phone: phone });
+            await memberP.add({ email: email, name: name, phone: formatPhone(phone), joined: joined });
             addForm.reset();
             toast("Added " + email);
             refreshMembers();
@@ -1207,10 +1366,189 @@ if(!window.FIREBASE_READY){
       list: async function(){ return load(AKEY) || []; },
       remove: async function(id_or_email){ save(AKEY, (load(AKEY)||[]).filter(function(a){ return a.id !== id_or_email && a.email !== id_or_email; })); }
     };
+    var demoPhotoProvider = {
+      upload: async function(email, file){
+        return new Promise(function(resolve){
+          var reader = new FileReader();
+          reader.onload = function(){ resolve(reader.result); };
+          reader.readAsDataURL(file);
+        });
+      },
+      remove: async function(email){}
+    };
+    var EKEY = "ur_demo_events";
+    var demoEventProvider = {
+      list: async function(){
+        return load(EKEY) || [
+          { id: "e1", title: "Club Meeting & Social", date: new Date().toISOString().slice(0,10), details: "Monthly business meeting at Penn Hills Clubhouse" }
+        ];
+      },
+      add: async function(rec){
+        var list = load(EKEY) || [];
+        var key = rec.id || 'evt_' + Date.now();
+        var existing = list.findIndex(x => x.id === key);
+        var item = { id: key, title: rec.title, date: rec.date, details: rec.details };
+        if(existing > -1) list[existing] = item;
+        else list.push(item);
+        save(EKEY, list);
+      },
+      remove: async function(id){
+        save(EKEY, (load(EKEY)||[]).filter(function(x){ return x.id !== id; }));
+      }
+    };
     UR_AdminUI.reveal();
-    UR_AdminUI.init(memberProvider, appProvider);
+    UR_AdminUI.init(memberProvider, appProvider, demoPhotoProvider);
+    UR_EventsUI.init(demoEventProvider, true);
   })();
 }
+</script>
+
+
+<!-- Upcoming Events UI -->
+<script>
+window.UR_EventsUI = (function(){
+  var provider = null;
+  var isAdmin = false;
+  var events = [];
+  var listEl, formCardEl, formTitleEl, formEl;
+  var idInput, titleInput, dateInput, detailsInput;
+  var addBtn, cancelBtn;
+
+  function render(){
+    listEl.innerHTML = "";
+    if(!events.length){
+      listEl.appendChild(UR_AdminUI.el("div","adm-empty","No upcoming events scheduled."));
+      return;
+    }
+    // Sort events by date ascending
+    events.slice().sort(function(a,b){ return new Date(a.date) - new Date(b.date); }).forEach(function(e){
+      var row = UR_AdminUI.el("div","adm-row");
+      row.style.cssText = "display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; padding:18px 24px;";
+      
+      var left = UR_AdminUI.el("div");
+      left.style.cssText = "display:flex; gap:18px; align-items:center;";
+      
+      // Date badge
+      var dateBadge = UR_AdminUI.el("div");
+      dateBadge.style.cssText = "background:var(--card); border:1px solid var(--line-strong); border-radius:8px; width:64px; height:64px; display:flex; flex-direction:column; justify-content:center; align-items:center; font-family:'Barlow Condensed'; text-transform:uppercase;";
+      var d = new Date(e.date + "T12:00:00");
+      if(!isNaN(d.getTime())){
+        var mStr = d.toLocaleDateString("en-US", {month:"short"});
+        var dStr = d.toLocaleDateString("en-US", {day:"2-digit"});
+        var mEl = UR_AdminUI.el("span", null, mStr); mEl.style.cssText = "color:var(--gold); font-size:0.75rem; font-weight:700; letter-spacing:0.05em;";
+        var dEl = UR_AdminUI.el("span", null, dStr); dEl.style.cssText = "color:var(--ink); font-size:1.4rem; font-weight:700; line-height:1.1;";
+        dateBadge.appendChild(mEl); dateBadge.appendChild(dEl);
+      } else {
+        dateBadge.appendChild(UR_AdminUI.el("span", null, "EVT"));
+      }
+      left.appendChild(dateBadge);
+      
+      var info = UR_AdminUI.el("div");
+      var title = UR_AdminUI.el("b", null, e.title); title.style.cssText = "color:var(--ink); font-size:1.1rem; display:block; margin-bottom:4px;";
+      var details = UR_AdminUI.el("span", null, e.details || "No details provided"); details.style.cssText = "color:var(--muted); font-size:0.9rem;";
+      info.appendChild(title); info.appendChild(details);
+      left.appendChild(info);
+      row.appendChild(left);
+
+      if(isAdmin){
+        var acts = UR_AdminUI.el("div","adm-acts");
+        var editBtn = UR_AdminUI.el("button","adm-actbtn","Edit");
+        editBtn.onclick = function(){
+          idInput.value = e.id;
+          titleInput.value = e.title;
+          dateInput.value = e.date;
+          detailsInput.value = e.details || "";
+          formTitleEl.textContent = "Edit Event";
+          formCardEl.style.display = "block";
+          titleInput.focus();
+        };
+        var delBtn = UR_AdminUI.el("button","adm-actbtn danger","Remove");
+        delBtn.onclick = async function(){
+          if(confirm("Delete event: " + e.title + "?")){
+            await provider.remove(e.id);
+            if(!window.FIREBASE_READY){
+              events = events.filter(function(x){ return x.id !== e.id; });
+              render();
+            }
+          }
+        };
+        acts.appendChild(editBtn); acts.appendChild(delBtn);
+        row.appendChild(acts);
+      }
+      listEl.appendChild(row);
+    });
+  }
+
+  return {
+    init: function(evtProvider, userIsAdmin){
+      provider = evtProvider;
+      isAdmin = userIsAdmin;
+      listEl = document.getElementById("cal-list");
+      formCardEl = document.getElementById("cal-form-card");
+      formTitleEl = document.getElementById("cal-form-title");
+      formEl = document.getElementById("cal-event-form");
+      idInput = document.getElementById("cal-event-id");
+      titleInput = document.getElementById("cal-title");
+      dateInput = document.getElementById("cal-date");
+      detailsInput = document.getElementById("cal-details");
+      addBtn = document.getElementById("cal-add-btn");
+      cancelBtn = document.getElementById("cal-cancel-btn");
+
+      if(!listEl) return;
+
+      if(isAdmin && addBtn){
+        addBtn.style.display = "inline-block";
+        addBtn.onclick = function(){
+          formEl.reset();
+          idInput.value = "";
+          formTitleEl.textContent = "Add New Event";
+          formCardEl.style.display = "block";
+        };
+        cancelBtn.onclick = function(){
+          formCardEl.style.display = "none";
+        };
+        formEl.onsubmit = async function(e){
+          e.preventDefault();
+          var id = idInput.value;
+          var title = titleInput.value.trim();
+          var date = dateInput.value;
+          var details = detailsInput.value.trim();
+          if(!title || !date) return;
+          
+          var rec = { title: title, date: date, details: details };
+          if(id) rec.id = id;
+          
+          await provider.add(rec);
+          formCardEl.style.display = "none";
+          
+          if(!window.FIREBASE_READY){
+            var existingIndex = events.findIndex(x => x.id === id);
+            if(existingIndex > -1){
+              events[existingIndex] = { id: id, title: title, date: date, details: details };
+            } else {
+              rec.id = 'evt_' + Date.now();
+              events.push(rec);
+            }
+            render();
+          }
+        };
+      } else if(addBtn){
+        addBtn.style.display = "none";
+      }
+
+      (async function(){
+        try {
+          events = await provider.list();
+          render();
+        } catch(e) { console.error(e); }
+      })();
+    },
+    liveUpdate: function(freshEvents){
+      events = freshEvents;
+      render();
+    }
+  };
+})();
 </script>
 
 <!-- Shared Questions UI -->
@@ -1485,12 +1823,14 @@ if(!window.FIREBASE_READY){
 
     const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js");
     const { getAuth, onAuthStateChanged, signOut } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
-    const { getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, collection, getDocs }
+    const { getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, collection, getDocs, onSnapshot }
       = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+    const { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js");
 
     const app = initializeApp(window.FIREBASE_CONFIG);
     const auth = getAuth(app);
     const db = getFirestore(app);
+    const storage = getStorage(app);
 
     function initials(name){
       if(!name) return "UR";
@@ -1505,10 +1845,13 @@ if(!window.FIREBASE_READY){
       },
       add: async (rec) => {
         const key = rec.email.toLowerCase().trim();
-        await setDoc(doc(db, ALLOWLIST, key), {
+        const data = {
           name: rec.name || "", email: key, role: rec.role || "member",
           active: rec.active !== false, joined: rec.joined || new Date().toISOString().slice(0,10)
-        });
+        };
+        if(rec.phone) data.phone = rec.phone;
+        if(rec.photoURL) data.photoURL = rec.photoURL;
+        await setDoc(doc(db, ALLOWLIST, key), data);
       },
       update: async (email, patch) => { await updateDoc(doc(db, ALLOWLIST, email.toLowerCase().trim()), patch); },
       remove: async (email) => { await deleteDoc(doc(db, ALLOWLIST, email.toLowerCase().trim())); }
@@ -1546,7 +1889,22 @@ if(!window.FIREBASE_READY){
       // Admins get Member Management
       if(data.role === "admin"){
         UR_AdminUI.reveal();
-        UR_AdminUI.init(firestoreProvider, appProvider);
+        const photoProvider = {
+          upload: async (email, file) => {
+            const storageRef = ref(storage, 'avatars/' + email.toLowerCase().trim());
+            await uploadBytes(storageRef, file, { contentType: file.type });
+            return await getDownloadURL(storageRef);
+          },
+          remove: async (email) => {
+            const storageRef = ref(storage, 'avatars/' + email.toLowerCase().trim());
+            try {
+              await deleteObject(storageRef);
+            } catch(e) {
+              console.warn("Storage deletion ignored", e);
+            }
+          }
+        };
+        UR_AdminUI.init(firestoreProvider, appProvider, photoProvider);
         const minutesProvider = {
           list: async () => { const snap = await getDocs(collection(db,"minutes")); return snap.docs.map(d=>({id:d.id,...d.data()})); },
           add: async (rec) => { await setDoc(doc(db,"minutes",rec.id), rec); },
@@ -1579,6 +1937,48 @@ if(!window.FIREBASE_READY){
         };
         UR_QuestionsUI.init(memberQProvider, user.email||"");
       }
+
+      const eventProvider = {
+        list: async () => {
+          const snap = await getDocs(collection(db, "events"));
+          return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        },
+        add: async (rec) => {
+          const key = rec.id || 'evt_' + Date.now();
+          await setDoc(doc(db, "events", key), {
+            title: rec.title,
+            date: rec.date,
+            details: rec.details || "",
+            id: key
+          });
+        },
+        remove: async (id) => {
+          await deleteDoc(doc(db, "events", id));
+        }
+      };
+      UR_EventsUI.init(eventProvider, data.role === "admin");
+
+      // Real-time listener: keeps the Member Directory (and admin roster) updated
+      // for ALL connected users without needing a page refresh.
+      onSnapshot(collection(db, ALLOWLIST), (snap) => {
+        const freshMembers = snap.docs.map(d => ({ email: d.id, ...d.data() }));
+        // Update the admin UI if admin
+        if(data.role === "admin" && window.UR_AdminUI) {
+          UR_AdminUI.liveUpdate(freshMembers);
+        }
+        // Update the directory for all users
+        if(window.UR_AdminUI) {
+          UR_AdminUI.liveUpdateDirectory(freshMembers);
+        }
+      });
+
+      // Real-time listener for upcoming events
+      onSnapshot(collection(db, "events"), (snap) => {
+        const freshEvents = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        if(window.UR_EventsUI) {
+          UR_EventsUI.liveUpdate(freshEvents);
+        }
+      });
     });
 
     const so = document.getElementById("mp-signout");

@@ -55,7 +55,16 @@ service cloud.firestore {
       // Anyone can submit (create) an application
       allow create: if true;
       // Only admins can read, update, or delete applications
+      allow write: if isAdmin();
       allow read, update, delete: if isAdmin();
+    }
+    
+    // Events collection
+    match /events/{eventId} {
+      // Members can read upcoming events
+      allow read: if isMember();
+      // Only admins can write upcoming events
+      allow write: if isAdmin();
     }
   }
 }
