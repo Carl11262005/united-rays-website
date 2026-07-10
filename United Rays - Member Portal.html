@@ -759,6 +759,7 @@
       <div class="adm-tabs" id="adm-tabs">
         <button type="button" data-atab="members" class="active">Members</button>
         <button type="button" data-atab="apps">Applications <span class="adm-badge" id="adm-app-badge" style="display:none">0</span></button>
+        <button type="button" data-atab="removed">Removed Members</button>
       </div>
 
       <!-- Current members -->
@@ -784,14 +785,13 @@
                 <input type="tel" id="adm-add-phone" class="adm-input" placeholder="Optional" />
               </div>
               <div class="f">
-                <label>Year Joined</label>
-                <input type="number" id="adm-add-joined" class="adm-input" placeholder="e.g. 2020" min="1977" max="2035" />
+                <label>Date Joined</label>
+                <input type="date" id="adm-add-joined" class="adm-input" required />
               </div>
               <button type="submit" class="btn btn-red" style="padding:10px 16px;font-size:.9rem;width:100%;height:100%">Add Member</button>
             </div>
           </form>
         </div>
-
         <div class="adm-toolbar">
           <span class="lbl">Member Roster</span>
           <input type="search" class="adm-search" id="adm-search" placeholder="Search name or email…" />
@@ -803,6 +803,12 @@
       <div class="adm-sub" data-atab="apps" hidden>
         <div class="adm-note">New membership requests submitted through the website. Approve to add them to the roster, or decline to remove the request.</div>
         <div class="adm-list" id="adm-applist"></div>
+      </div>
+
+      <!-- Removed Members -->
+      <div class="adm-sub" data-atab="removed" hidden>
+        <div class="adm-note">Former members who have been removed from the portal. Admins can view their join dates and automatic end dates.</div>
+        <div class="adm-list" id="adm-removed-list"></div>
       </div>
     </section>
 
@@ -850,6 +856,27 @@
     </div>
     <div class="app-modal-body" id="app-modal-body"></div>
     <div class="app-modal-foot" id="app-modal-foot"></div>
+  </div>
+</div>
+
+<!-- Edit Joined Date Modal (admin) -->
+<div class="app-modal" id="edit-joined-modal">
+  <div class="app-modal-card" style="max-width: 400px; margin-top: 10vh;">
+    <div class="app-modal-head">
+      <div class="adm-av" id="ej-modal-av">UR</div>
+      <div class="nm"><b id="ej-modal-name">Member Name</b><span id="ej-modal-email">member@email.com</span></div>
+      <button class="app-modal-close" id="ej-modal-close" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="app-modal-body" style="padding-top: 20px;">
+      <div class="mp-field">
+        <label>Joined Date</label>
+        <input type="date" id="ej-modal-date" style="width: 100%; box-sizing: border-box; background: #0b0907; border: 1px solid var(--line-strong); border-radius: 6px; color: var(--ink); font-family: 'Barlow'; font-size: 1rem; padding: 13px 15px;" required />
+      </div>
+    </div>
+    <div class="app-modal-foot">
+      <button class="adm-actbtn" id="ej-modal-cancel">Cancel</button>
+      <button class="btn btn-red" id="ej-modal-save" style="padding: 10px 20px; font-size: 0.9rem;">Save Date</button>
+    </div>
   </div>
 </div>
 
@@ -1000,12 +1027,14 @@ window.UR_AdminUI = (function(){
 
   /* ---------- Members ---------- */
   function renderStats(){
-    document.getElementById("adm-count-total").textContent = members.length;
+    var activeCount = members.filter(function(m){ return !m.removed; }).length;
+    document.getElementById("adm-count-total").textContent = activeCount;
   }
   function renderMembers(){
     renderStats();
     var q = (searchEl.value||"").toLowerCase().trim();
     var rows = members.filter(function(m){
+      if (m.removed) return false;
       return !q || (m.name||"").toLowerCase().includes(q) || (m.email||"").toLowerCase().includes(q);
     }).sort(function(a,b){ return (a.name||a.email).localeCompare(b.name||b.email); });
     listEl.innerHTML = "";
@@ -1026,7 +1055,10 @@ window.UR_AdminUI = (function(){
       row.appendChild(who);
       var roleWrap = el("div"); roleWrap.appendChild(el("span","pill "+(m.role==="admin"?"officer":"member"), m.role==="admin"?"Officer":"Member")); row.appendChild(roleWrap);
       var statusWrap = el("div"); statusWrap.appendChild(el("span","pill "+(m.active===false?"susp":"active"), m.active===false?"Suspended":"Active")); row.appendChild(statusWrap);
-      var joinedCell = el("div","adm-joined"); joinedCell.appendChild(el("span",null,fmtDate(m.joined))); joinedCell.appendChild(el("span","adm-dur",fmtDuration(m.joined))); row.appendChild(joinedCell);
+      var joinedCell = el("div","adm-joined");
+      joinedCell.appendChild(el("span",null,fmtDate(m.joined)));
+      joinedCell.appendChild(el("span","adm-dur",fmtDuration(m.joined)));
+      row.appendChild(joinedCell);
       var acts = el("div","adm-acts");
       if(m.role !== "admin"){
         var adminBtn = el("button","adm-actbtn","Make Admin");
@@ -1041,17 +1073,7 @@ window.UR_AdminUI = (function(){
       acts.appendChild(editBtn);
       var joinedBtn = el("button","adm-actbtn","Edit Joined");
       joinedBtn.onclick = function(){
-        var currentJoined = m.joined || "";
-        var yearOnly = /^\d{4}$/.test(currentJoined) ? currentJoined : (currentJoined ? new Date(currentJoined).getFullYear().toString() : "");
-        var newJoined = prompt("Enter joined year (e.g. 2020) for "+(m.name||m.email)+":", yearOnly);
-        if(newJoined !== null){
-          var trimmed = newJoined.trim();
-          if(trimmed && !/^\d{4}$/.test(trimmed)){
-            alert("Invalid year. Please enter a 4-digit year (e.g., 2020).");
-            return;
-          }
-          doUpdate(m.email, { joined: trimmed || new Date().getFullYear().toString() }, "Joined year updated");
-        }
+        showEditJoinedModal(m);
       };
       acts.appendChild(joinedBtn);
       if(photoP){
@@ -1083,9 +1105,67 @@ window.UR_AdminUI = (function(){
       listEl.appendChild(row);
     });
   }
-  async function refreshMembers(){ members = await memberP.list(); renderMembers(); renderDirectory(); }
+  async function refreshMembers(){ members = await memberP.list(); renderMembers(); renderRemovedMembers(); renderDirectory(); }
   async function doUpdate(email, patch, msg){ await memberP.update(email, patch); await refreshMembers(); toast(msg); }
-  async function doRemove(email, label){ await memberP.remove(email); await refreshMembers(); toast("Removed "+label); }
+  async function doRemove(email, label){
+    var today = new Date().toISOString().slice(0, 10);
+    await memberP.update(email, { active: false, removed: true, endDate: today });
+    await refreshMembers();
+    toast("Removed " + label);
+  }
+
+  function renderRemovedMembers() {
+    var removedEl = document.getElementById("adm-removed-list");
+    if (!removedEl) return;
+    removedEl.innerHTML = "";
+    var rows = members.filter(function(m){
+      return m.removed === true;
+    }).sort(function(a,b){ return (a.name||a.email).localeCompare(b.name||b.email); });
+    
+    if(!rows.length){ removedEl.appendChild(el("div","adm-empty", "No removed members.")); return; }
+    
+    rows.forEach(function(m){
+      var row = el("div","adm-row suspended");
+      var who = el("div","adm-who");
+      who.appendChild(avatar(m));
+      var nm = el("div","nm");
+      nm.appendChild(el("b", null, m.name||"(no name)"));
+      nm.appendChild(el("span", null, m.email));
+      who.appendChild(nm);
+      row.appendChild(who);
+      
+      var statusWrap = el("div"); 
+      statusWrap.appendChild(el("span","pill susp", "Removed")); 
+      row.appendChild(statusWrap);
+      
+      var joinedCell = el("div","adm-joined"); 
+      joinedCell.appendChild(el("span",null, "Joined: " + fmtDate(m.joined))); 
+      joinedCell.appendChild(el("span","adm-dur", "Ended: " + fmtDate(m.endDate))); 
+      row.appendChild(joinedCell);
+      
+      var acts = el("div","adm-acts");
+      var restoreBtn = el("button","adm-actbtn approve","Restore Member");
+      restoreBtn.onclick = function(){
+        if(confirm("Restore " + (m.name||m.email) + " to active membership?")) {
+          doUpdate(m.email, { active: true, removed: false, endDate: null }, "Restored " + (m.name||m.email));
+        }
+      };
+      acts.appendChild(restoreBtn);
+      
+      var permDeleteBtn = el("button","adm-actbtn danger","Delete Permanently");
+      permDeleteBtn.onclick = async function(){
+        if(confirm("Permanently delete " + (m.name||m.email) + " from the database? This cannot be undone.")) {
+          await memberP.remove(m.email);
+          await refreshMembers();
+          toast("Permanently deleted " + (m.name||m.email));
+        }
+      };
+      acts.appendChild(permDeleteBtn);
+      
+      row.appendChild(acts);
+      removedEl.appendChild(row);
+    });
+  }
 
   /* ---------- Applications ---------- */
   function renderApps(){
@@ -1221,6 +1301,38 @@ window.UR_AdminUI = (function(){
   }
   function closeModal(){ if(modalEl) modalEl.classList.remove("show"); modalApp=null; }
 
+  var ejModalEl = null, ejModalBound = false, ejModalMember = null;
+  function showEditJoinedModal(m) {
+    ejModalEl = ejModalEl || document.getElementById("edit-joined-modal");
+    if (!ejModalEl) return;
+    ejModalMember = m;
+    
+    document.getElementById("ej-modal-av").textContent = initials(m.name || m.email);
+    document.getElementById("ej-modal-name").textContent = m.name || "(no name)";
+    document.getElementById("ej-modal-email").textContent = m.email;
+    
+    var currentJoined = m.joined || "";
+    var val = /^\d{4}$/.test(currentJoined) ? currentJoined + "-01-01" : currentJoined;
+    if (!val) val = new Date().toISOString().slice(0, 10);
+    document.getElementById("ej-modal-date").value = val;
+    
+    if (!ejModalBound) {
+      ejModalBound = true;
+      document.getElementById("ej-modal-close").onclick = closeEjModal;
+      document.getElementById("ej-modal-cancel").onclick = closeEjModal;
+      document.getElementById("ej-modal-save").onclick = async function() {
+        if (!ejModalMember) return;
+        var newDate = document.getElementById("ej-modal-date").value;
+        await doUpdate(ejModalMember.email, { joined: newDate }, "Joined date updated for " + (ejModalMember.name || ejModalMember.email));
+        closeEjModal();
+      };
+      ejModalEl.addEventListener("click", function(e) { if (e.target === ejModalEl) closeEjModal(); });
+      document.addEventListener("keydown", function(e) { if (e.key === "Escape" && ejModalEl.classList.contains("show")) closeEjModal(); });
+    }
+    ejModalEl.classList.add("show");
+  }
+  function closeEjModal() { if (ejModalEl) ejModalEl.classList.remove("show"); ejModalMember = null; }
+
   /* ---------- Tabs ---------- */
   function setupTabs(){
     var tabs = document.querySelectorAll("#adm-tabs button");
@@ -1271,18 +1383,22 @@ window.UR_AdminUI = (function(){
       
       var addForm = document.getElementById("adm-add-member-form");
       if(addForm) {
+        var joinedInput = document.getElementById("adm-add-joined");
+        if (joinedInput) joinedInput.value = new Date().toISOString().slice(0, 10);
+
         addForm.addEventListener("submit", async function(e) {
           e.preventDefault();
           var name = document.getElementById("adm-add-name").value.trim();
           var email = document.getElementById("adm-add-email").value.trim();
           var phone = document.getElementById("adm-add-phone") ? document.getElementById("adm-add-phone").value.trim() : "";
-          var joined = (document.getElementById("adm-add-joined") && document.getElementById("adm-add-joined").value) || new Date().getFullYear().toString();
+          var joined = (document.getElementById("adm-add-joined") && document.getElementById("adm-add-joined").value) || new Date().toISOString().slice(0, 10);
           if(!email) return;
           var btn = addForm.querySelector("button[type='submit']");
           btn.disabled = true;
           try {
             await memberP.add({ email: email, name: name, phone: formatPhone(phone), joined: joined });
             addForm.reset();
+            if (joinedInput) joinedInput.value = new Date().toISOString().slice(0, 10);
             toast("Added " + email);
             refreshMembers();
           } catch(err) {
@@ -1292,7 +1408,6 @@ window.UR_AdminUI = (function(){
           btn.disabled = false;
         });
       }
-      
       refreshMembers();
       refreshApps();
     }
