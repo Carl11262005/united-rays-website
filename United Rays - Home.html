@@ -285,10 +285,13 @@
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
     object-fit: cover;
+    object-position: center 15%;
+    transform: scale(1.3);
+    transform-origin: center 15%;
     transition: transform 0.5s ease;
   }
   .board-card:hover .board-img-wrapper img {
-    transform: scale(1.04);
+    transform: scale(1.38);
   }
   .board-info {
     padding: 20px 16px;
@@ -723,6 +726,15 @@
         <div class="board-info">
           <h3>Robert Sapp</h3>
           <p>Sergeant at Arms</p>
+        </div>
+      </div>
+      <div class="board-card">
+        <div class="board-img-wrapper">
+          <img src="images/gerald-reed.png" alt="Gerald Reed, Governor" />
+        </div>
+        <div class="board-info">
+          <h3>Gerald Reed</h3>
+          <p>Governor</p>
         </div>
       </div>
     </div>
