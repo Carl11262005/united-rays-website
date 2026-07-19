@@ -100,8 +100,25 @@
   .socials a{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--line-strong);border-radius:50%;color:var(--muted);transition:.2s}
   .socials a:hover{color:var(--gold);border-color:var(--gold)}
   .socials svg{width:15px;height:15px;fill:currentColor}
-  .login{font-family:"Barlow Condensed";font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.95rem;color:var(--muted)}
-  .login:hover{color:var(--gold)}
+  .login{
+    font-family:"Barlow Condensed";font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.9rem;
+    color:var(--gold);
+    border:1px solid rgba(224,179,77,.35);
+    background:rgba(224,179,77,.03);
+    padding:10px 18px;
+    border-radius:3px;
+    transition:.2s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .login:hover{
+    background:var(--gold);
+    color:#1a1208;
+    border-color:var(--gold);
+    transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(224,179,77,.15);
+  }
   .menu-btn{display:none;background:none;border:1px solid var(--line-strong);color:var(--ink);width:44px;height:44px;border-radius:4px;cursor:pointer}
 
   /* ---------- Hero ---------- */
@@ -228,6 +245,74 @@
   .sig{font-family:"Bebas Neue";font-size:2rem;color:var(--gold);margin-top:26px;line-height:1}
   .sig span{display:block;font-family:"Barlow Condensed";font-weight:600;font-size:.82rem;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-top:4px}
 
+  /* ---------- Executive Board ---------- */
+  .board-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 40px;
+  }
+  .board-card {
+    background: var(--card, #16130f);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    text-align: center;
+    width: 100%;
+    max-width: 290px;
+    box-shadow: 0 12px 30px -15px rgba(0, 0, 0, 0.5);
+  }
+  .board-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-5px);
+    box-shadow: 0 16px 35px -10px rgba(224, 179, 77, 0.18);
+  }
+  .board-img-wrapper {
+    position: relative;
+    padding-top: 110%;
+    background: #0f0e0c;
+    overflow: hidden;
+  }
+  .board-img-wrapper::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0; width: 4px; z-index: 2;
+    background: linear-gradient(180deg, var(--red), var(--gold));
+  }
+  .board-img-wrapper img {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .board-card:hover .board-img-wrapper img {
+    transform: scale(1.04);
+  }
+  .board-info {
+    padding: 20px 16px;
+    border-top: 1px solid var(--line);
+  }
+  .board-info h3 {
+    font-family: "Barlow Condensed", sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1.45rem;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+  .board-info p {
+    font-family: "Barlow Condensed", sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+  }
+
   /* ---------- Events / Calendar ---------- */
   .events{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .ev-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
@@ -345,7 +430,7 @@
     .brand-txt b{font-size:1.25rem}
     .brand-txt small{font-size:.58rem;letter-spacing:.24em}
     .nav-cta{gap:10px}
-    .nav-cta .login{display:block;font-size:.78rem;letter-spacing:.08em;padding:6px 10px;border:1px solid var(--line-strong);border-radius:3px}
+    .nav-cta .login{display:inline-flex;font-size:.78rem;letter-spacing:.08em;padding:8px 12px;border:1px solid rgba(224,179,77,.35);border-radius:3px}
     .nav-cta .btn{font-size:.78rem;padding:9px 14px;letter-spacing:.08em}
     .menu-btn{width:38px;height:38px}
 
@@ -456,6 +541,7 @@
       <a href="#heritage">Heritage</a>
       <a href="#mission">Mission</a>
       <a href="#president">President</a>
+      <a href="#board">Board</a>
       <a href="#events">Events</a>
       <a href="#gallery">Gallery</a>
       <a href="#affiliations">Affiliations</a>
@@ -464,7 +550,7 @@
       <div class="socials">
         <a href="https://www.facebook.com/URCC2018" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v6h4v-6h3l1-4h-4V9c0-.6.4-1 1-1z"/></svg></a>
       </div>
-      <a class="login" href="United Rays - Sign In.html">Member Login</a>
+      <a class="login" href="United Rays - Sign In.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Member Login</a>
       <a class="btn btn-red" href="United Rays - Apply.html">Join Us</a>
     </div>
   </div>
@@ -579,6 +665,29 @@
         <p>The United Rays is committed to serving our community — hosting service events and partnering with organizations that bring aid to those around us. We'd be excited to welcome you to one of our cruises during the season, from May through September.</p>
         <p>If you're looking for a club family, we would love to add you to ours.</p>
         <div class="sig">Kim Young<span>President · United Rays Corvette Club</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXECUTIVE BOARD ================= -->
+<section class="section" id="board" style="background:var(--bg-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head" style="text-align: center; margin-bottom: 50px;">
+      <span class="overline" style="margin: 0 auto;">Club Leadership</span>
+      <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 3.8rem); text-transform: uppercase; color: var(--ink); margin-top: 10px;">Executive Board</h2>
+      <p style="color: var(--muted); max-width: 600px; margin: 10px auto 0; font-size: 1.05rem;">Meet the dedicated officers directing the operations of the United Rays Corvette Club.</p>
+    </div>
+    
+    <div class="board-grid">
+      <div class="board-card">
+        <div class="board-img-wrapper">
+          <img src="images/robert-sapp.png" alt="Robert Sapp, Sergeant at Arms" />
+        </div>
+        <div class="board-info">
+          <h3>Robert Sapp</h3>
+          <p>Sergeant at Arms</p>
+        </div>
       </div>
     </div>
   </div>
@@ -741,7 +850,7 @@
         <h4>Connect</h4>
         <a href="#events">Events</a>
         <a href="#affiliations">Affiliations</a>
-        <a href="#">Executive Board</a>
+        <a href="#board">Executive Board</a>
         <a href="mailto:Urayspittsburgh@gmail.com">Contact Us</a>
       </div>
       <div class="foot-col">
